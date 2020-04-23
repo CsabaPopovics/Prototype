@@ -1,4 +1,4 @@
 
-public class Eskimo {
+public class Eskimo extends Pawn{
 
 }

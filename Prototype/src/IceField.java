@@ -1,4 +1,4 @@
 
-public class IceField {
+public class IceField extends Field{
 
 }

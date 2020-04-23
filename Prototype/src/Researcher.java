@@ -1,4 +1,4 @@
 
-public class Researcher {
+public class Researcher extends Pawn{
 
 }

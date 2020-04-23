@@ -1,4 +1,4 @@
 
-public class UnstableIceField {
+public class UnstableIceField extends IceField{
 
 }
