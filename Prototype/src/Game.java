@@ -24,8 +24,8 @@ public class Game {
 			
 	}
 
-	public void setup(){
-		Scanner intScanner=new Scanner(System.in);
+	public void setup(Scanner lineScanner){
+		Scanner intScanner=lineScanner;
 		int numberOfPlayers=0;
 		int numberOfEskimos=0;
 		int numberOfResearchers=0;
@@ -45,5 +45,7 @@ public class Game {
 		}
 		init();
 	}
+
+
 
 }

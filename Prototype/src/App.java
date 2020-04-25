@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class App {
 	private static Game game;
+	private static Scanner lineScanner;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -17,7 +18,7 @@ public class App {
 	}
 
 	private static void processInput() {
-		Scanner lineScanner=new Scanner(System.in);
+		lineScanner=new Scanner(System.in);
 		String line;
 		String[] words;
 		while(lineScanner.hasNextLine()){
@@ -26,7 +27,7 @@ public class App {
 			if(words[0]!=null){
 				switch (words[0]){
 					case "newGame":
-						game=newGame();
+						game=newGame(lineScanner);
 						break;
 					case "loadGame":
 						game=loadGame();
@@ -79,9 +80,9 @@ public class App {
 		}
 	}
 
-	private static Game newGame() {
+	private static Game newGame(Scanner lineScanner) {
 		Game newGame=new Game();
-		newGame.setup();
+		newGame.setup(lineScanner);
 		return newGame;
 	}
 
