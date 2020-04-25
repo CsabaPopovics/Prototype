@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class App {
 	private static Game game;
 	private static Scanner lineScanner;
+	private static boolean determinism;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -78,6 +79,34 @@ public class App {
 			}
 
 		}
+	}
+
+	private static void step(String[] words) {
+
+	}
+
+	private static void setDeterminism(String[] words) {
+		String error="Szintaxis: determinism {on|off}";
+		if(words.length==2){
+			switch (words[1]){
+				case "on":
+					determinism=true;
+					break;
+				case "off":
+					determinism=false;
+					break;
+				default:
+					System.out.println(error);
+					break;
+			}
+		}
+		else System.out.println(error);
+
+	}
+
+	private static void saveGame() {
+		String save=game.toString();
+		System.out.print(save);
 	}
 
 	private static Game newGame(Scanner lineScanner) {
