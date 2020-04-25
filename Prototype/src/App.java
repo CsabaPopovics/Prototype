@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import static java.lang.Integer.parseInt;
+
 public class App {
 	private static Game game;
 	private static Scanner lineScanner;
@@ -81,8 +83,28 @@ public class App {
 		}
 	}
 
+	private static void clearSnow(String[] words) {
+		String error="clearSnow index";
+		if(words.length==2){
+			Pawn pawn=game.getActivePawn();
+			Item i=pawn.getItem(parseInt(words[1]));
+			pawn.clearSnow(i);
+		}
+		else System.out.println(error);
+	}
+
+	private static void eat(String[] words) {
+		String error="eat index";
+		if(words.length==2){
+
+				game.getActivePawn().eat(parseInt(words[1]));
+
+		}
+		else System.out.println(error);
+	}
+
 	private static void step(String[] words) {
-		String error="Szintaxis: {up|down|right|left}"
+		String error="Szintaxis: {up|down|right|left}";
 		if(words.length==2){
 			Pawn activePawn=game.getActivePawn();
 			switch (words[1]){

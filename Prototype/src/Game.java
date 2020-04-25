@@ -46,6 +46,10 @@ public class Game {
 		init();
 	}
 
+	private void init() {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
+
 	@Override
 	public String toString() {
 		throw new UnsupportedOperationException("Not Implemented");
