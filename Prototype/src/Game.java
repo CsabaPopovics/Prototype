@@ -51,4 +51,8 @@ public class Game {
 		throw new UnsupportedOperationException("Not Implemented");
 		return super.toString();
 	}
+
+	public Pawn getActivePawn() {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
 }

@@ -82,7 +82,30 @@ public class App {
 	}
 
 	private static void step(String[] words) {
+		String error="Szintaxis: {up|down|right|left}"
+		if(words.length==2){
+			Pawn activePawn=game.getActivePawn();
+			switch (words[1]){
+				case "up":
+					activePawn.step(Direction.Up);
+					break;
+				case "down":
+					activePawn.step(Direction.Down);
+					break;
+				case "right":
+					activePawn.step(Direction.Right);
+					break;
+				case "left":
+					activePawn.step(Direction.Left);
+					break;
+				default:
+					System.out.println(error);
+					break;
 
+
+			}
+		}
+		else System.out.println(error);
 	}
 
 	private static void setDeterminism(String[] words) {
