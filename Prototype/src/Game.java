@@ -7,6 +7,7 @@ public class Game {
 	private static boolean win = false;
 	
 	private static ArrayList<Pawn> characters = new ArrayList<Pawn>();
+	private PolarBear polarBear;
 
 	public static void partFound() {
 		progress++;
@@ -58,5 +59,14 @@ public class Game {
 
 	public Pawn getActivePawn() {
 		throw new UnsupportedOperationException("Not Implemented");
+	}
+
+	//Adott mezőn a hóvihar
+	public void blizzardAt(int i, int j) {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
+
+	public PolarBear getPolarBear() {
+		return polarBear;
 	}
 }

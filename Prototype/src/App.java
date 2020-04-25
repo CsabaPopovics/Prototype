@@ -74,6 +74,7 @@ public class App {
 					case "bear":
 						bear(words);
 						break;
+					///////// tesztek
 					default:
 						System.out.println("No recognized command");
 						break;
@@ -81,6 +82,56 @@ public class App {
 			}
 
 		}
+	}
+
+	private static void bear(String[] words) {
+		String error="Szintaxis: bear {up|down|right|left}";
+		if(words.length==2 && determinism){
+			PolarBear bear=game.getPolarBear();
+			switch (words[1]){
+				case "up":
+					bear.step(Direction.Up);
+					break;
+				case "down":
+					bear.step(Direction.Down);
+					break;
+				case "right":
+					bear.step(Direction.Right);
+					break;
+				case "left":
+					bear.step(Direction.Left);
+					break;
+				default:
+					System.out.println(error);
+					break;
+			}
+		}
+		else System.out.println(error);
+	}
+
+	private static void storm(String[] words) {
+		String error="Szintaxis: storm i j";
+		if(words.length==3 && determinism){
+			try{
+				game.blizzardAt(parseInt(words[1]), parseInt(words[2]));
+			}catch (NumberFormatException e){
+				System.out.println(error);
+			}
+		}
+		System.out.println(error);
+	}
+
+	private static void finish() {
+		game.getActivePawn().finish();
+	}
+
+	private static void setupTent(String[] words) {
+		if(words.length==2) game.getActivePawn().setupTent(parseInt(words[1]));
+		else System.out.println("Szintaxis: setupTent index");
+	}
+
+	private static void buildIgloo() {
+		game.getActivePawn().buildIgloo();
 	}
 
 	private static void inspect(String[] words) {
@@ -103,8 +154,6 @@ public class App {
 				default:
 					System.out.println(error);
 					break;
-
-
 			}
 		}
 		else System.out.println(error);

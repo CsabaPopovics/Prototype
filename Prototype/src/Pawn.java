@@ -98,4 +98,15 @@ public class Pawn {
 
 	public void inspect(Direction right) {
 	}
+
+	public void buildIgloo() {
+	}
+
+	public void setupTent(int parseInt) {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
+
+	public void finish() {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
 }
