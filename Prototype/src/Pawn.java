@@ -95,4 +95,7 @@ public class Pawn {
 	public Item getItem(int index) {
 		return inventory.get(index);
 	}
+
+	public void inspect(Direction right) {
+	}
 }

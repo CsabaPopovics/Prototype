@@ -83,6 +83,41 @@ public class App {
 		}
 	}
 
+	private static void inspect(String[] words) {
+		String error="Szintaxis: {up|down|right|left}";
+		if(words.length==2){
+			Pawn activePawn=game.getActivePawn();
+			switch (words[1]){
+				case "up":
+					activePawn.inspect(Direction.Up);
+					break;
+				case "down":
+					activePawn.inspect(Direction.Down);
+					break;
+				case "right":
+					activePawn.inspect(Direction.Right);
+					break;
+				case "left":
+					activePawn.inspect(Direction.Left);
+					break;
+				default:
+					System.out.println(error);
+					break;
+
+
+			}
+		}
+		else System.out.println(error);
+	}
+
+	private static void assembleGun() {
+		game.getActivePawn().assembleGun();
+	}
+
+	private static void excavate() {
+		game.getActivePawn().excavate();
+	}
+
 	private static void clearSnow(String[] words) {
 		String error="clearSnow index";
 		if(words.length==2){
