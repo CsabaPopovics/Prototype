@@ -70,10 +70,19 @@ public class App {
 					case "bear":
 						bear(words);
 						break;
+					default:
+						System.out.println("No recognized command");
+						break;
 				}
 			}
 
 		}
+	}
+
+	private static Game newGame() {
+		Game newGame=new Game();
+		newGame.setup();
+		return newGame;
 	}
 
 }
