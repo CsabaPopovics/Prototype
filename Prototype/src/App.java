@@ -5,7 +5,7 @@ import static java.lang.Integer.parseInt;
 public class App {
 	private static Game game;
 	private static Scanner lineScanner;
-	private static boolean determinism;
+	//private static boolean determinism;
 
 	public static void main(String[] args) {
 		processInput();
@@ -82,7 +82,7 @@ public class App {
 
 	private static void bear(String[] words) {
 		String error="Szintaxis: bear {up|down|right|left}";
-		if(words.length==2 && determinism){
+		if(words.length==2 && game.determinism){
 			PolarBear bear=game.getPolarBear();
 			switch (words[1]){
 				case "up":
@@ -107,9 +107,9 @@ public class App {
 
 	private static void storm(String[] words) {
 		String error="Szintaxis: storm i j";
-		if(words.length==3 && determinism){
+		if(words.length==3 && game.determinism){
 			try{
-				game.blizzardAt(parseInt(words[1]), parseInt(words[2]));
+				game.blizzardAt(words[1], parseInt(words[2]));
 			}catch (NumberFormatException e){
 				System.out.println(error);
 			}
@@ -215,10 +215,10 @@ public class App {
 		if(words.length==2){
 			switch (words[1]){
 				case "on":
-					determinism=true;
+					game.determinism=true;
 					break;
 				case "off":
-					determinism=false;
+					game.determinism=false;
 					break;
 				default:
 					System.out.println(error);

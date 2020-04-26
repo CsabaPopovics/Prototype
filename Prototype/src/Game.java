@@ -13,7 +13,7 @@ public class Game {
 
 	private static ArrayList<Pawn> characters = new ArrayList<Pawn>();
 	private PolarBear polarBear;
-	private boolean determinism;
+	public boolean determinism;
 
 
 
@@ -69,8 +69,8 @@ public class Game {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 
-	//Adott mezőn a hóvihar
-	public void blizzardAt(int i, int j) {
+	//Adott mezőn a hóvihar, amount a tesztek miatt kell
+	public void blizzardAt(String fieldName, int amount) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 
