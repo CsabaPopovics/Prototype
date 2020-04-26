@@ -86,7 +86,27 @@ public class Pawn {
 			field.removeItem();
 		}
 	}
-	
-	
 
+
+	public void eat(int parseInt) {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
+
+	public Item getItem(int index) {
+		return inventory.get(index);
+	}
+
+	public void inspect(Direction right) {
+	}
+
+	public void buildIgloo() {
+	}
+
+	public void setupTent(int parseInt) {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
+
+	public void finish() {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
 }
