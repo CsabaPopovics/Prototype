@@ -6,6 +6,8 @@ public class Game {
 	private static boolean end = false;
 	private static boolean win = false;
 	
+	private ArrayList<Field> fields = new ArrayList<Field>();
+	
 	private static ArrayList<Pawn> characters = new ArrayList<Pawn>();
 	private PolarBear polarBear;
 
@@ -71,4 +73,12 @@ public class Game {
 	}
 	
 	public static int getCharacterCount() {return characters.size();}
+	
+	public Field getField(String name) {
+		for(Field f : fields) {
+			if(f.getName() == name)
+				return f;
+		}
+		return null;
+	}
 }
