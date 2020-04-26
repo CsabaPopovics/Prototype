@@ -126,14 +126,14 @@ public class Game {
 			int number;
 			switch (words[0]){
 				case "Character":
-					number=parseInt(words[1]);
+					String name=(words[1]);
 					Pawn p=Researcher.parse(scanner);
 					if(p==null) p=Eskimo.parse(scanner);
-					if(p!=null) characters.add(number, p);
+					if(p!=null) characters.add(p);
 					break;
 				case "Inventory":
-					number=parseInt(words[1]);
-					game.addItemsToCharacter(Item.parseItemList(scanner), number);
+					String characterName=(words[1]);
+					game.addItemsToCharacter(Item.parseItemList(scanner), characterName);
 					break;
 				case "Field":
 					if(words.length==2){
@@ -182,7 +182,7 @@ public class Game {
 	}
 
 	//a listában levő itemeket hozzáadja az adott indexű karakterhez
-	private void addItemsToCharacter(List<Item> parseItemList, int number) {
+	private void addItemsToCharacter(List<Item> parseItemList, String characterName) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 
