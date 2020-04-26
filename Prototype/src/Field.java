@@ -105,4 +105,18 @@ public class Field {
 	
 	public String getName() {return name;}
 
+	@Override
+	public String toString() {
+		String res;
+		res="Field "+name+"%n";
+		if(capacityDiscovered()) res+="capacityDiscovered%n";
+		res+="snow "+snowLevel+"%n";
+		if(igloo) res+="hasIgloo%n";
+		if(tent) res+="hasTent%n";
+		return res;
+	}
+
+	private boolean capacityDiscovered() {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
 }

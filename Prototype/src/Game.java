@@ -71,4 +71,32 @@ public class Game {
 	}
 	
 	public static int getCharacterCount() {return characters.size();}
+
+	@Override
+	public String toString(){
+		String res="";
+		if(characters!=null){
+			for(int i=0;i<characters.size()-1;++i){
+				Pawn ch=characters.get(i);
+				res+="Character "+i+"%n"+ch.toString()+"%n";
+				res+="Inventory "+i+"%n"+ch.inventoryToString()+"%n";
+			}
+		}
+		if(fields!=null){
+			for (Field f:fields
+			) {
+				res+=f.toString()+"%n";
+			}
+		}
+		if(polarBear!=null){
+			res+=polarBear.toString()+"%n";
+
+		}
+		res+="determinism "+ (determinism ? "on": "off")+"%n";
+		res+="End%n";
+		return res;
+
+
+
+	}
 }

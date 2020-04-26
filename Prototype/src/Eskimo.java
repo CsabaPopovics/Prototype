@@ -10,4 +10,10 @@ public class Eskimo extends Pawn{
        if(field.setIgloo())
     	   workUnit--;
     }
+
+    @Override
+    public String toString() {
+        String res="type eskimo%n"+super.toString();
+        return res;
+    }
 }

@@ -20,4 +20,10 @@ public class Hole extends Field{
 	@Override
 	public boolean setIgloo() {return false;}
 
+	@Override
+	public String toString() {
+		String res= super.toString();
+		res+="capacity 0%n";
+		return res;
+	}
 }

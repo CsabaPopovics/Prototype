@@ -8,4 +8,8 @@ public class Rope extends Item {
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		return "rope";
+	}
 }

@@ -190,4 +190,33 @@ public class Pawn {
 	public void resetWorkunits() {
 		workUnit = 4;
 	}
+
+	@Override
+	public String toString() {
+		String res="name " +name+"%n"+
+					"temperature "+bodyTemp+"%n"+
+					"workunits "+workUnit+"%n"+
+					"position " +field.name+"%n";
+		if(isActive()){
+			res+="isactive%n";
+		}
+		return res;
+
+
+	}
+
+	public String inventoryToString(){
+		String res="";
+		if(inventory!=null){
+
+			for (Item i: inventory
+				 ) {
+				res+=i.toString()+"%n";
+			}
+		}
+	}
+
+	private boolean isActive() {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
 }

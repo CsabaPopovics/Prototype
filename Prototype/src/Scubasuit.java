@@ -8,4 +8,8 @@ public class Scubasuit extends Item {
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		return "scubasuit";
+	}
 }

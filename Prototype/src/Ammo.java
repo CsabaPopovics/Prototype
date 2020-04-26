@@ -12,4 +12,8 @@ public class Ammo extends Item {
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		return "ammo";
+	}
 }

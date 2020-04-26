@@ -14,4 +14,10 @@ public class Researcher extends Pawn{
         	workUnit--;
         }
     }
+
+    @Override
+    public String toString() {
+        String res="type researcher%n"+super.toString();
+        return res;
+    }
 }

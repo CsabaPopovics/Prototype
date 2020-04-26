@@ -15,4 +15,8 @@ public class FragileShovel extends Shovel{
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		return "fragileShovel";
+	}
 }
