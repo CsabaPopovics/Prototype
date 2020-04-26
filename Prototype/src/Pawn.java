@@ -6,6 +6,9 @@ public class Pawn {
 	protected ArrayList<Item> inventory = new ArrayList<Item>();
 	protected int bodyTemp = 4;
 	protected int workUnit = 4;
+	private boolean finished = false;
+	
+	public Pawn(String name) {this.name = name;}
 	
 	public String getName() { return name;}
 	
@@ -44,8 +47,7 @@ public class Pawn {
 			field.remove(this);
 			destination.accept(this);
 			workUnit--;
-		} else
-			System.out.println("There is nothing in that direction.");
+		}
 	}
 	
 	public void clearSnow(Item i) {
@@ -63,7 +65,7 @@ public class Pawn {
 	public void assembleGun() {
 		for(Pawn p : field.getCharacters()) {
 			for(Item i : p.getInventory()) {
-				i.use("AddPart");
+				addPart(i);
 			}
 		}
 		fire();
@@ -82,10 +84,70 @@ public class Pawn {
 			workUnit--;
 		}
 	}
+	
+	public boolean rescue(Pawn p) {
+		for(Item i : inventory) {
+			if(throwRope(i, p)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean cryForHelp() {
+		for(Direction d : Direction.values()) {
+			Field helpingField = field.getNeighbour(d);
+			if(helpingField != null) {
+				ArrayList<Pawn> mySaviors = new ArrayList<Pawn>();
+				mySaviors = helpingField.getCharacters();
+				if(mySaviors != null) {
+					for(Pawn savior : mySaviors) {
+						if(savior.rescue(this)) {
+							return true;
+						}
+					}
+				}
+			}
+			
+		}
+		return false;
+	}
+	
+	public boolean throwRope(Item i, Pawn p) {
+		if(i.use("Throw")) {
+			p.getField().remove(p);
+			field.accept(p);
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean putOn(Item i) {
+		return i.use("PutOn");
+	}
+	
+	public void fallIntoWater() {
+		for(Item i : inventory) {
+			if(putOn(i))
+				return;
+		}
+		if(!cryForHelp())
+			die();
+	}
+	
+	public void addPart(Item i) {
+		i.use("AddPart");
+	}
+	
+	//******************************************************************
 
 
 	public void eat(int parseInt) {
-		throw new UnsupportedOperationException("Not Implemented");
+		Item i = inventory.get(parseInt);
+		if(i != null) {
+			if(i.use("Eat"))
+				workUnit--;
+		}
 	}
 
 	public Item getItem(int index) {
@@ -99,10 +161,14 @@ public class Pawn {
 	}
 
 	public void setupTent(int parseInt) {
-		throw new UnsupportedOperationException("Not Implemented");
+		Item i = inventory.get(parseInt);
+		if(i != null) {
+			if(i.use("Setup"))
+				workUnit--;
+		}
 	}
 
 	public void finish() {
-		throw new UnsupportedOperationException("Not Implemented");
+		finished = true;
 	}
 }
