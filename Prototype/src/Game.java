@@ -17,11 +17,7 @@ public class Game {
 
 
 
-	public static void partFound() {
-		progress++;
-		System.out.println("Flaregun assembly: " + progress + "/3");
-		
-	}
+	public static void partFound() {progress++;}
 
 	public static void end() { end = true;
 		System.out.println("Game ended");
