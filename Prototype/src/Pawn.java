@@ -7,15 +7,11 @@ public class Pawn {
 	protected int bodyTemp = 4;
 	protected int workUnit = 4;
 	
-	public String getName() {return name;}
+	public String getName() { return name;}
 	
-	public void setField(Field field) {this.field = field;}
+	public void setField(Field field) { this.field = field;}
 
-	public void die() {
-		System.out.println(this.name + " died.");
-		Game.end();
-		
-	}
+	public void die() { Game.end();}
 
 	public void updateBodyTemp(int i) {
 		bodyTemp += i;
@@ -43,13 +39,11 @@ public class Pawn {
 	}
 	
 	public void step(Direction d) {
-		System.out.println(name + " attempts to step in " + d.name() + " direction.");
 		Field destination = field.getNeighbour(d);
 		if(destination != null) {
-			System.out.println("In the given direction there is the " + destination.getName() + " field");
-			System.out.println(name + " steps.");
 			field.remove(this);
 			destination.accept(this);
+			workUnit--;
 		} else
 			System.out.println("There is nothing in that direction.");
 	}
@@ -73,6 +67,7 @@ public class Pawn {
 			}
 		}
 		fire();
+		workUnit--;
 	}
 
 	public ArrayList<Item> getInventory() {
@@ -84,6 +79,7 @@ public class Pawn {
 		if(excavatedItem != null) {
 			addToInventory(excavatedItem);
 			field.removeItem();
+			workUnit--;
 		}
 	}
 	
