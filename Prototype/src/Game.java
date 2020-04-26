@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
@@ -67,7 +68,18 @@ public class Game {
 
 	//Adott mezőn a hóvihar, amount a tesztek miatt kell
 	public void blizzardAt(String fieldName, int amount) {
-		throw new UnsupportedOperationException("Not Implemented");
+		for (Field f: fields
+			 ) {
+			if(f.name.equals(fieldName)){
+				if(determinism){
+					f.updateSnow(amount);
+				}
+				else{
+					Random r=new Random();
+					f.updateSnow(r.nextInt(4)+1);
+				}
+			}
+		}
 	}
 
 	public PolarBear getPolarBear() {
