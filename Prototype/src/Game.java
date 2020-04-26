@@ -101,25 +101,25 @@ public class Game {
 	public String toString(){
 		String res="";
 		if(characters!=null){
-			for(int i=0;i<characters.size()-1;++i){
+			for(int i=0;i<characters.size();++i){
 				Pawn ch=characters.get(i);
-				res+="Character "+i+"%n"+ch.toString()+"%n";
-				res+="Inventory "+i+"%n"+ch.inventoryToString()+"%n";
+				res+="Character "+ch.name +String.format("%n")+ch.toString()+String.format("%n");
+				res+="Inventory "+ch.name +String.format("%n")+ch.inventoryToString()+String.format("%n");
 			}
 		}
 		if(fields!=null){
 			for (Field f:fields
 			) {
-				res+=f.toString()+"%n";
+				res+=f.toString()+String.format("%n%n");
 			}
 		}
 		if(polarBear!=null){
-			res+=polarBear.toString()+"%n";
+			res+=polarBear.toString()+String.format("%n");
 
 		}
 
-		res+="determinism "+ (determinism ? "on": "off")+"%n";
-		res+="End%n";
+		res+="determinism "+ (determinism ? "on": "off")+String.format("%n");
+		res+=String.format("End%n");
 		return res;
 
 

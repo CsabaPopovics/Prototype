@@ -38,7 +38,7 @@ public class Researcher extends Pawn{
 
     @Override
     public String toString() {
-        String res="type researcher%n"+super.toString();
+        String res=String.format("type researcher%n")+super.toString();
         return res;
     }
 }

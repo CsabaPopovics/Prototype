@@ -66,6 +66,7 @@ public class App {
 						bear(words);
 						break;
 					///////// tesztek
+					case "": break;
 					default:
 						System.out.println("No recognized command");
 						break;
@@ -106,7 +107,7 @@ public class App {
 	}
 
 	private static void storm(String[] words) {
-		String error="Szintaxis: storm i j";
+		String error="Szintaxis: storm fieldNev";
 		if(words.length==3 && game.determinism){
 			try{
 				game.blizzardAt(words[1], parseInt(words[2]));
@@ -114,7 +115,7 @@ public class App {
 				System.out.println(error);
 			}
 		}
-		System.out.println(error);
+		else System.out.println(error);
 	}
 
 	private static void finish() {

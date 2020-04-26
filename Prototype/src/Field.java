@@ -158,11 +158,11 @@ public class Field {
 	@Override
 	public String toString() {
 		String res;
-		res="Field "+name+"%n";
-		if(capacityDiscovered()) res+="capacityDiscovered%n";
-		res+="snow "+snowLevel+"%n";
-		if(igloo) res+="hasIgloo%n";
-		if(tent) res+="hasTent%n";
+		res="";
+		if(capacityDiscovered()) res+=String.format("capacityDiscovered%n");
+		res+=String.format("snow ")+snowLevel+String.format("%n");
+		if(igloo) res+=String.format("hasIgloo%n");
+		if(tent) res+=String.format("hasTent%n");
 		return res;
 	}
 

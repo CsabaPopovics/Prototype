@@ -26,7 +26,7 @@ public class Eskimo extends Pawn{
 
     @Override
     public String toString() {
-        String res="type eskimo%n"+super.toString();
+        String res=String.format("type eskimo%n")+super.toString();
         return res;
     }
 

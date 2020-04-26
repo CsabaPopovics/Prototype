@@ -235,12 +235,11 @@ public class Pawn {
 
 	@Override
 	public String toString() {
-		String res="name " +name+"%n"+
-					"temperature "+bodyTemp+"%n"+
-					"workunits "+workUnit+"%n"+
-					"position " +field.name+"%n";
+		String res=	"temperature "+bodyTemp+String.format("%n")+
+					"workunits "+workUnit+String.format("%n")+
+					"position " +field.name+String.format("%n");
 		if(isActive()){
-			res+="isactive%n";
+			res+=String.format("isactive%n");
 		}
 		return res;
 

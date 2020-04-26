@@ -16,6 +16,6 @@ public class PolarBear {
 
 	@Override
 	public String toString() {
-		return "Bear "+field.name+"%n";
+		return "Bear "+field.name+String.format("%n");
 	}
 }

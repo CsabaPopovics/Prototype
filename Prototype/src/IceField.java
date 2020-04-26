@@ -33,7 +33,7 @@ public class IceField extends Field{
 
     @Override
     public String toString() {
-        String res="capacity -1%n";
+        String res="Field "+name+String.format("%n")+String.format("capacity -1%n");
         res+=toStringHelper();
         return res;
     }
