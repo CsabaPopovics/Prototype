@@ -1,9 +1,27 @@
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Researcher extends Pawn{
 	
 	public Researcher() {super();}
 	
 	public Researcher(String name) {super(name);}
+
+	public Researcher(Pawn p){
+        name=p.name;
+        field=p.field;
+        inventory = p.inventory;
+        bodyTemp = p.bodyTemp;
+        workUnit = p.workUnit;
+        finished = p.finished;
+    }
+
+    public static Researcher parse(Scanner scanner) {
+	    if(scanner.next().equals("type") && scanner.next().equals("researcher")){
+	        return new Researcher(Pawn.parse(scanner));
+        }
+	    else return null;
+    }
 
     @Override
     public void inspect(Direction d) {

@@ -1,5 +1,8 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import static java.lang.Integer.parseInt;
 
 public class Game {
 	private static int progress = 0;
@@ -10,6 +13,8 @@ public class Game {
 
 	private static ArrayList<Pawn> characters = new ArrayList<Pawn>();
 	private PolarBear polarBear;
+
+
 
 	public static void partFound() {
 		progress++;
@@ -108,5 +113,45 @@ public class Game {
 
 
 
+	}
+
+	public static Game parse(Scanner scanner){
+		String[] words=null;
+		Game game=new Game();
+		while(scanner.hasNextLine()){
+			words=scanner.nextLine().split(" ");
+			int number;
+			switch (words[0]){
+				case "Character":
+					number=parseInt(words[1]);
+					Pawn p=Researcher.parse(scanner);
+					if(p==null) p=Eskimo.parse(scanner);
+					if(p!=null) characters.add(number, p);
+					break;
+				case "Inventory":
+					number=parseInt(words[1]);
+					game.addItemsToCharacter(Item.parseItemList(scanner), number);
+
+			}
+
+		}
+		game.placePawnsToFieldsFirstTime();
+		game.setActivePawn();
+
+	}
+
+	//a listában levő itemeket hozzáadja az adott indexű karakterhez
+	private void addItemsToCharacter(List<Item> parseItemList, int number) {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
+
+	///Betöltéshez kell
+	// végigmegy a karaktereken, és amelyik aktív, azt beállítja a Gameben aktívnak;
+	private void setActivePawn() {
+	}
+
+	//konzolról való betöltéshez kell
+	//minden field, minden pawn: ha pawn.starterFieldName == field.name rárakja fieldre, pawn fieldjét is beálítja
+	private void placePawnsToFieldsFirstTime() {
 	}
 }

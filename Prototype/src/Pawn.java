@@ -1,18 +1,51 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static java.lang.Integer.parseInt;
+
 public class Pawn {
 	protected String name;
 	protected Field field;
 	protected ArrayList<Item> inventory = new ArrayList<Item>();
 	protected int bodyTemp = 4;
 	protected int workUnit = 4;
-	private boolean finished = false;
+	protected boolean finished = false;
+	protected String starterFieldName; //Csak parserhez kell, később nem érdekes
+	protected boolean starterIsActive=false; //Csak parserhez kell
 	
 	public Pawn() {}
 	
 	public Pawn(String name) {this.name = name;}
-	
+
+	protected static Pawn parse(Scanner scanner) {
+		String[] words=null;
+		Pawn p=new Pawn();
+		boolean parse=true;
+		while(scanner.hasNextLine() && parse){
+			words=scanner.nextLine().split(" ");
+			switch (words[0]){
+				case "temperature":
+					if(words.length==2) p.bodyTemp=parseInt(words[1]);
+					break;
+				case "workunits":
+					if(words.length==2) p.workUnit=parseInt(words[1]);
+					break;
+				case "position":
+					if(words.length==2) p.starterFieldName=words[1];
+					break;
+				case "isactive":
+					p.starterIsActive=true;
+					break;
+				case "":
+					parse=false;
+					break;
+				default:
+					break;
+			}
+		}
+		return p;
+	}
+
 	public String getName() { return name;}
 	
 	public void setName(String name) {this.name = name;}
@@ -214,6 +247,7 @@ public class Pawn {
 				res+=i.toString()+"%n";
 			}
 		}
+		return res;
 	}
 
 	private boolean isActive() {
