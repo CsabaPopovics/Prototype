@@ -3,19 +3,22 @@ import java.util.HashMap;
 
 public class Field {
 	protected int snowLevel;
-	protected int limit;
-	protected boolean tent;
-	protected boolean igloo;
+	protected int limit = -1;
+	protected boolean tent = false;
+	protected boolean igloo = false;
 	protected ArrayList<Pawn> characters = new ArrayList<Pawn>();
 	protected HashMap<Direction, Field> neighbours = new HashMap<Direction, Field>(); 
 	protected PolarBear polarBear = null;
 	protected String name;
 	
+	public Field() {}
+	
+	public Field(String name) {this.name = name;}
+	
 	public void accept(Pawn p) {
 		if(p != null) {
 			characters.add(p);
 			p.setField(this);
-			System.out.println(p.getName() + "'s current location: " + this.name);
 		}
 	}
 	
@@ -23,9 +26,7 @@ public class Field {
 		if(polarBear != null) {
 			this.polarBear = polarBear;
 			polarBear.setField(this);
-			System.out.println("The bear's current location: " + this.name);
 			if(!characters.isEmpty() && !igloo) {
-				System.out.println("Bear attack on " + this.name + "! Casualties: ");
 				for(Pawn p : characters) {
 					p.die();
 				}
@@ -45,21 +46,17 @@ public class Field {
 	
 	public boolean updateSnow(int i) {
 		if(i >= 0) {
-			System.out.println("Blizzard on " + this.name);
 			if(!this.igloo && !this.tent && !characters.isEmpty()) {
 				for(Pawn p : characters)
 					p.updateBodyTemp(-1);
 			}
 			this.snowLevel += i;
-			System.out.println(this.name + "'s current level of snow: " + this.snowLevel);
 			return true;
 		} else {
 			if(this.snowLevel == 0) {
-				System.out.println(this.name + " doesn't have any snow on it!");
 				return false;
 			}
 			this.snowLevel += i;
-			System.out.println(this.name + "'s current level of snow: " + this.snowLevel);
 			return true;
 		}
 	}
@@ -70,7 +67,7 @@ public class Field {
 		} else return null;
 	}
 	
-	public int getLimit() { return -1;}
+	public int getLimit() { return limit;}
 	
 	public int getLoad() { return characters.size();}
 	
@@ -94,12 +91,18 @@ public class Field {
 	
 	public Item getItem() { return null;}
 
-	public String getName() {
-		return name;
-	}
-
 	public void removeItem() {
 		return;
 	}
+	
+	public boolean setIgloo() {
+		if(igloo)
+			return false;
+		return true;
+	}
+	
+	public void setName(String name) {this.name = name;}
+	
+	public String getName() {return name;}
 
 }

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Pawn {
 	protected String name;
@@ -8,9 +9,13 @@ public class Pawn {
 	protected int workUnit = 4;
 	private boolean finished = false;
 	
+	public Pawn() {}
+	
 	public Pawn(String name) {this.name = name;}
 	
 	public String getName() { return name;}
+	
+	public void setName(String name) {this.name = name;}
 	
 	public void setField(Field field) { this.field = field;}
 
@@ -138,8 +143,6 @@ public class Pawn {
 	public void addPart(Item i) {
 		i.use("AddPart");
 	}
-	
-	//******************************************************************
 
 
 	public void eat(int parseInt) {
@@ -167,8 +170,24 @@ public class Pawn {
 				workUnit--;
 		}
 	}
+	
+	public void command() {
+		Scanner lineScanner = new Scanner(System.in);
+		String line;
+		String[] words;
+		while(!finished && workUnit > 0) {
+			line=lineScanner.nextLine();
+			words=line.split(" ");
+			
+		}
+		
+	}
 
 	public void finish() {
 		finished = true;
+	}
+	
+	public void resetWorkunits() {
+		workUnit = 4;
 	}
 }

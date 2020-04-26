@@ -69,4 +69,6 @@ public class Game {
 	public PolarBear getPolarBear() {
 		return polarBear;
 	}
+	
+	public static int getCharacterCount() {return characters.size();}
 }
