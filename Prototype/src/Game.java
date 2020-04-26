@@ -11,11 +11,7 @@ public class Game {
 	private static ArrayList<Pawn> characters = new ArrayList<Pawn>();
 	private PolarBear polarBear;
 
-	public static void partFound() {
-		progress++;
-		System.out.println("Flaregun assembly: " + progress + "/3");
-		
-	}
+	public static void partFound() {progress++;}
 
 	public static void end() { end = true;}
 
