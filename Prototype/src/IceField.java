@@ -5,7 +5,10 @@ public class IceField extends Field{
 	
 	public IceField() {super();}
 	
-	public IceField(String name) {super(name);}
+	public IceField(String name) {
+	    super(name);
+
+	}
 
     public IceField(Field f) {
 	    super(f);

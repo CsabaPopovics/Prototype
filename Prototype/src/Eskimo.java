@@ -13,6 +13,9 @@ public class Eskimo extends Pawn{
         bodyTemp = p.bodyTemp;
         workUnit = p.workUnit;
         finished = p.finished;
+        starterFieldName=p.starterFieldName; //Csak parserhez kell, később nem érdekes
+        starterIsActive=p.starterIsActive; //Csak parserhez kell
+        game=p.game;
     }
 
     @Override
@@ -27,10 +30,10 @@ public class Eskimo extends Pawn{
         return res;
     }
 
-    public static Eskimo parse(Scanner scanner) {
-        if(scanner.next().equals("type") && scanner.next().equals("eskimo")){
-            return new Eskimo(Pawn.parse(scanner));
-        }
-        else return null;
+    public static Eskimo parse(Scanner scanner, String name) {
+
+            return new Eskimo(Pawn.parse(scanner, name));
+
+
     }
 }

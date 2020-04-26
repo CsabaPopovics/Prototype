@@ -6,12 +6,12 @@ public class UnstableIceField extends IceField{
 	
 	public UnstableIceField() {
 		super();
-		limit = new Random().nextInt(Game.getCharacterCount()) + 1;
+		limit = new Random().nextInt(game.getCharacterCount()) + 1;
 	}
 	
 	public UnstableIceField(String name) {
 		super(name);
-		limit = new Random().nextInt(Game.getCharacterCount()) + 1;
+		limit = new Random().nextInt(game.getCharacterCount()) + 1;
 	}
 
     public UnstableIceField(String name, int capacity) {

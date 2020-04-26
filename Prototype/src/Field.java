@@ -14,6 +14,7 @@ public class Field {
 	protected PolarBear polarBear = null;
 	protected String name;
 	protected boolean capacityDiscovered=false;
+	protected Game game;
 	
 	public Field() {}
 	
@@ -166,6 +167,11 @@ public class Field {
 	}
 
 	private boolean capacityDiscovered() {
-		throw new UnsupportedOperationException("Not Implemented");
+		return capacityDiscovered;
+	}
+
+	//Betöltéshez pawn elhelyezése vizsgálat nélkül
+	public void placePawnFirstTime(Pawn p){
+		characters.add(p);
 	}
 }

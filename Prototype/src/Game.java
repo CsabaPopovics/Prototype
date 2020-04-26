@@ -12,8 +12,9 @@ public class Game {
 	
 	private ArrayList<Field> fields = new ArrayList<Field>();
 
-	private static ArrayList<Pawn> characters = new ArrayList<Pawn>();
+	private ArrayList<Pawn> characters = new ArrayList<Pawn>();
 	private PolarBear polarBear;
+	private Pawn activeCharacter=null;
 	public boolean determinism;
 
 
@@ -24,7 +25,7 @@ public class Game {
 		System.out.println("Game ended");
 	}
 
-	public static void checkConditions() {
+	public void checkConditions() {
 		if(progress == 3 && characters.get(0).getField().getCharacters().size() == characters.size()) {
 			win = true;
 		} else
@@ -63,7 +64,7 @@ public class Game {
 
 
 	public Pawn getActivePawn() {
-		throw new UnsupportedOperationException("Not Implemented");
+		return activeCharacter;
 	}
 
 	//Adott mezőn a hóvihar, amount a tesztek miatt kell
@@ -86,7 +87,7 @@ public class Game {
 		return polarBear;
 	}
 	
-	public static int getCharacterCount() {return characters.size();}
+	public int getCharacterCount() {return characters.size();}
 
 	public Field getField(String name) {
 		for(Field f : fields) {
@@ -135,9 +136,22 @@ public class Game {
 			switch (words[0]){
 				case "Character":
 					String name=(words[1]);
-					Pawn p=Researcher.parse(scanner);
-					if(p==null) p=Eskimo.parse(scanner);
-					if(p!=null) characters.add(p);
+					words=scanner.nextLine().split(" ");
+					Pawn p=null;
+					if(words.length==2){
+						if(words[1].equals("researcher")){
+							p=Researcher.parse(scanner, name);
+						}
+						else{
+							p=Eskimo.parse(scanner, name);
+						}
+					}
+
+
+					if(p!=null){
+						p.game=game;
+						game.characters.add(p);
+					}
 					break;
 				case "Inventory":
 					String characterName=(words[1]);
@@ -151,12 +165,25 @@ public class Game {
 						if(scanner.hasNextLine()){
 							words=scanner.nextLine().split(" ");
 							if(words.length==2 && words[0].equals("capacity")){
-								if(words[1].equals("0")) {f=new Hole(fieldName); break;}
-								if(words[1].equals("-1")) {f=new IceField(fieldName); break;}
+								{
+									if (words[1].equals("0")) {
+										f = new Hole(fieldName);
+										f.parse(scanner);
+										game.fields.add(f);
+										break;
+									}
+									if (words[1].equals("-1")) {
+										f = new IceField(fieldName);
+										f.parse(scanner);
+										game.fields.add(f);
+										break;
+									}
+
+								}
 								f=new UnstableIceField(fieldName, parseInt(words[1])); break;
 							}
 						}
-						if(f!=null) f.parse(scanner);
+						//if(f!=null) f.parse(scanner);
 					}
 					break;
 				case "Bear":
@@ -197,11 +224,25 @@ public class Game {
 	///Betöltéshez kell
 	// végigmegy a karaktereken, és amelyik aktív, azt beállítja a Gameben aktívnak;
 	private void setActivePawn() {
+		for(Pawn p:characters){
+			if(p.starterIsActive){
+				activeCharacter=p;
+				break;
+			}
+		}
 	}
 
 	//konzolról való betöltéshez kell
 	//minden field, minden pawn: ha pawn.starterFieldName == field.name rárakja fieldre, pawn fieldjét is beálítja
 	private void placePawnsToFieldsFirstTime() {
+		for(Field f:fields){
+			for(Pawn p:characters){
+				if(f.name.equals(p.starterFieldName)){
+					f.placePawnFirstTime(p);
+					p.field=f;
+				}
+			}
+		}
 	}
 
 	public int getCharacterNumber(Pawn pawn) {

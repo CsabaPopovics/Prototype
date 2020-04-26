@@ -12,21 +12,21 @@ public abstract class Item {
         if(words.length==1){
             switch(words[0]){
                 case "shovel":
-                   inv.add(new Shovel());
+                   inv.add(new Shovel());break;
                 case "scubasuit":
-                    inv.add (new Scubasuit());
+                    inv.add (new Scubasuit());break;
                 case "food":
-                    inv.add(new Food());
+                    inv.add(new Food());break;
                 case "rope":
-                    inv.add(new Rope());
+                    inv.add(new Rope());break;
                 case "tent":
-                    inv.add(new Tent());
+                    inv.add(new Tent());break;
                 case "ammo":
-                    inv.add(new Ammo());
+                    inv.add(new Ammo());break;
                 case "flare":
-                    inv.add(new Flare());
+                    inv.add(new Flare());break;
                 case "pistol":
-                    inv.add(new Pistol());
+                    inv.add(new Pistol());break;
                 default: return null;
             }
         }
