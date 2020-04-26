@@ -4,8 +4,12 @@ public class Hole extends Field{
 	public Hole() {super(); limit = 0;}
 	
 	public Hole(String name) {super(name); limit = 0;}
-	
-	@Override
+
+    public Hole(Field f) {
+		super(f);
+    }
+
+    @Override
 	public void accept(Pawn p) {
 		if(p != null) {
 			characters.add(p);
@@ -22,8 +26,9 @@ public class Hole extends Field{
 
 	@Override
 	public String toString() {
-		String res= super.toString();
-		res+="capacity 0%n";
+
+		String res= "capacity 0%n";
+		res+=super.toString();
 		return res;
 	}
 }

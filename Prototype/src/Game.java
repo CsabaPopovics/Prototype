@@ -13,6 +13,7 @@ public class Game {
 
 	private static ArrayList<Pawn> characters = new ArrayList<Pawn>();
 	private PolarBear polarBear;
+	private boolean determinism;
 
 
 
@@ -58,11 +59,7 @@ public class Game {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 
-	@Override
-	public String toString() {
-		throw new UnsupportedOperationException("Not Implemented");
-		return super.toString();
-	}
+
 
 	public Pawn getActivePawn() {
 		throw new UnsupportedOperationException("Not Implemented");
@@ -107,6 +104,7 @@ public class Game {
 			res+=polarBear.toString()+"%n";
 
 		}
+
 		res+="determinism "+ (determinism ? "on": "off")+"%n";
 		res+="End%n";
 		return res;
@@ -131,6 +129,22 @@ public class Game {
 				case "Inventory":
 					number=parseInt(words[1]);
 					game.addItemsToCharacter(Item.parseItemList(scanner), number);
+					break;
+				case "Field":
+					if(words.length==2){
+						//game.fields.add(Field.parse(scanner, words[1]));
+						String fieldName=words[1];
+						Field f=null;
+						if(scanner.hasNextLine()){
+							words=scanner.nextLine().split(" ");
+							if(words.length==2 && words[0].equals("capacity")){
+								if(words[1].equals("0")) f=new Hole(fieldName); break;
+								if(words[1].equals("-1")) f=new IceField(fieldName); break;
+								f=new UnstableIceField(fieldName, parseInt(words[1])); break;
+							}
+						}
+						if(f!=null) f.parse(scanner);
+					}
 
 			}
 
