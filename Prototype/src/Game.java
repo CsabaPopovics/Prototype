@@ -23,7 +23,9 @@ public class Game {
 		
 	}
 
-	public static void end() { end = true;}
+	public static void end() { end = true;
+		System.out.println("Game ended");
+	}
 
 	public static void checkConditions() {
 		if(progress == 3 && characters.get(0).getField().getCharacters().size() == characters.size()) {
@@ -33,28 +35,30 @@ public class Game {
 			
 	}
 
+	public static Game newGame(Scanner lineScanner) {
+		Game game=new Game();
+		game.setup(lineScanner);
+		return game;
+	}
+
 	public void setup(Scanner lineScanner){
-		Scanner intScanner=lineScanner;
-		int numberOfPlayers=0;
-		int numberOfEskimos=0;
-		int numberOfResearchers=0;
-		boolean equals=false;
-		while(numberOfPlayers<3 || !equals){
-			System.out.println("Játékosok száma");
-			numberOfPlayers=intScanner.nextInt();
-			System.out.println("Eszkimók száma");
-			numberOfEskimos=intScanner.nextInt();
-			System.out.println("Kutatók száma");
-			numberOfResearchers=intScanner.nextInt();
-			equals=numberOfEskimos+numberOfResearchers==numberOfPlayers ||
-					numberOfEskimos<0 ||
-					numberOfPlayers<3 ||
-					numberOfResearchers<0;
-			if(!equals) System.out.println("összeghiba");
+		boolean read=true;
+
+		while(lineScanner.hasNextLine() && read){
+			if(characters.size()<3) System.out.println("adj hozzá legalább 3 játékost");
+			String[] words=lineScanner.nextLine().split(" ");
+			if(words.length==2){
+				if(words[0].equals("addEskimo")) characters.add(new Eskimo(words[1]));
+				if(words[0].equals("addResearcher")) characters.add(new Eskimo(words[1]));
+			}
+			if(words[0].equals("finishSetup")) read=false;
+
 		}
+
 		init();
 	}
 
+	//fieldek generálása, karakterek elhelyezése
 	private void init() {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
@@ -139,8 +143,8 @@ public class Game {
 						if(scanner.hasNextLine()){
 							words=scanner.nextLine().split(" ");
 							if(words.length==2 && words[0].equals("capacity")){
-								if(words[1].equals("0")) f=new Hole(fieldName); break;
-								if(words[1].equals("-1")) f=new IceField(fieldName); break;
+								if(words[1].equals("0")) {f=new Hole(fieldName); break;}
+								if(words[1].equals("-1")) {f=new IceField(fieldName); break;}
 								f=new UnstableIceField(fieldName, parseInt(words[1])); break;
 							}
 						}
@@ -190,5 +194,9 @@ public class Game {
 	//konzolról való betöltéshez kell
 	//minden field, minden pawn: ha pawn.starterFieldName == field.name rárakja fieldre, pawn fieldjét is beálítja
 	private void placePawnsToFieldsFirstTime() {
+	}
+
+	public int getCharacterNumber(Pawn pawn) {
+		return characters.indexOf(pawn);
 	}
 }

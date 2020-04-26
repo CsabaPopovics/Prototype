@@ -34,6 +34,7 @@ public class UnstableIceField extends IceField{
 	public void flip() {
 		for(Pawn pawn : characters)
 			pawn.fallIntoWater();
+		System.out.println("IceField "+name+ " flipped");
 	}
 
     @Override

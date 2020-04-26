@@ -12,6 +12,7 @@ public class Pawn {
 	protected boolean finished = false;
 	protected String starterFieldName; //Csak parserhez kell, később nem érdekes
 	protected boolean starterIsActive=false; //Csak parserhez kell
+	protected Game game;
 	
 	public Pawn() {}
 	
@@ -52,7 +53,11 @@ public class Pawn {
 	
 	public void setField(Field field) { this.field = field;}
 
-	public void die() { Game.end();}
+	public void die() {
+		System.out.println("Character "+game.getCharacterNumber(this)+" died");
+		Game.end();}
+
+
 
 	public void updateBodyTemp(int i) {
 		bodyTemp += i;
@@ -126,7 +131,9 @@ public class Pawn {
 	public boolean rescue(Pawn p) {
 		for(Item i : inventory) {
 			if(throwRope(i, p)) {
+				System.out.println("Character "+game.getCharacterNumber(this)+" was rescued");
 				return true;
+
 			}
 		}
 		return false;
@@ -165,12 +172,14 @@ public class Pawn {
 	}
 	
 	public void fallIntoWater() {
+		System.out.println("Character "+game.getCharacterNumber(this)+" fallen into water");
 		for(Item i : inventory) {
 			if(putOn(i))
 				return;
 		}
 		if(!cryForHelp())
 			die();
+
 	}
 	
 	public void addPart(Item i) {

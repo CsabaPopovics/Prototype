@@ -75,6 +75,11 @@ public class App {
 		}
 	}
 
+	private static Game loadGame() {
+		if(lineScanner!=null) return Game.parse(lineScanner);
+		return null;
+	}
+
 	private static void bear(String[] words) {
 		String error="Szintaxis: bear {up|down|right|left}";
 		if(words.length==2 && determinism){
@@ -230,9 +235,7 @@ public class App {
 	}
 
 	private static Game newGame(Scanner lineScanner) {
-		Game newGame=new Game();
-		newGame.setup(lineScanner);
-		return newGame;
+		return Game.newGame(lineScanner);
 	}
 
 }
