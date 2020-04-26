@@ -116,7 +116,8 @@ public class Game {
 	public static Game parse(Scanner scanner){
 		String[] words=null;
 		Game game=new Game();
-		while(scanner.hasNextLine()){
+		boolean parse=true;
+		while(scanner.hasNextLine() && parse){
 			words=scanner.nextLine().split(" ");
 			int number;
 			switch (words[0]){
@@ -145,12 +146,34 @@ public class Game {
 						}
 						if(f!=null) f.parse(scanner);
 					}
-
+					break;
+				case "Bear":
+					if(words.length==2){
+						for (Field f: game.fields
+							 ) {
+							if(f.name.equals(words[1])){
+								PolarBear pb=new PolarBear();
+								pb.setField(f);
+								f.polarBear=pb;
+							}
+						}
+					}
+					break;
+				case "determinism":
+					if(words.length==2){
+						if(words[1].equals("on")) game.determinism=true;
+						else game.determinism=false;
+					}
+					break;
+				case "End":
+					parse=false;
+					break;
 			}
 
 		}
 		game.placePawnsToFieldsFirstTime();
 		game.setActivePawn();
+		return game;
 
 	}
 
