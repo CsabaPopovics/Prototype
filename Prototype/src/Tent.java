@@ -9,4 +9,8 @@ public class Tent extends Item {
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		return "tent";
+	}
 }

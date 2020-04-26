@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
+
+import static java.lang.Integer.parseInt;
 
 public class Field {
 	protected int snowLevel;
@@ -10,11 +13,57 @@ public class Field {
 	protected HashMap<Direction, Field> neighbours = new HashMap<Direction, Field>(); 
 	protected PolarBear polarBear = null;
 	protected String name;
+	protected boolean capacityDiscovered=false;
 	
 	public Field() {}
 	
 	public Field(String name) {this.name = name;}
-	
+
+	public Field(Field f) {
+		snowLevel=f.snowLevel;
+		limit=f.limit;
+		tent=f.tent;
+		igloo=f.igloo;
+		characters=f.characters;
+		neighbours=f.neighbours;
+		polarBear=f.polarBear;
+		name=f.name;
+		capacityDiscovered=f.capacityDiscovered;
+	}
+
+	public void parse(Scanner scanner) {
+
+		boolean parse=true;
+		String[] words=null;
+
+
+		while(scanner.hasNextLine() && parse){
+			words=scanner.nextLine().split(" ");
+			if(words.length==1){
+				switch (words[0]){
+					case "capacityDiscovered": capacityDiscovered=true;break;
+					case "hasIgloo": igloo=true;break;
+					case "hasTent": tent=true;break;
+					default: break;
+
+				}
+			}
+			if(words.length==2){
+				switch (words[0]){
+					case "snow":
+						snowLevel=parseInt(words[1]);break;
+
+
+
+
+				}
+			}
+			if(words[0].equals("")) parse=false;
+
+		}
+		return;
+	}
+
 	public void accept(Pawn p) {
 		if(p != null) {
 			characters.add(p);
@@ -105,4 +154,18 @@ public class Field {
 	
 	public String getName() {return name;}
 
+	@Override
+	public String toString() {
+		String res;
+		res="Field "+name+"%n";
+		if(capacityDiscovered()) res+="capacityDiscovered%n";
+		res+="snow "+snowLevel+"%n";
+		if(igloo) res+="hasIgloo%n";
+		if(tent) res+="hasTent%n";
+		return res;
+	}
+
+	private boolean capacityDiscovered() {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
 }

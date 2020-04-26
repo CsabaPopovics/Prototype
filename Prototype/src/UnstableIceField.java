@@ -1,6 +1,8 @@
 import java.util.Random;
 
 public class UnstableIceField extends IceField{
+
+	private int limit;
 	
 	public UnstableIceField() {
 		super();
@@ -11,8 +13,14 @@ public class UnstableIceField extends IceField{
 		super(name);
 		limit = new Random().nextInt(Game.getCharacterCount()) + 1;
 	}
-	
-	@Override
+
+    public UnstableIceField(String name, int capacity) {
+		super(name);
+		limit=capacity;
+
+    }
+
+    @Override
 	public void accept(Pawn p) {
 		if(p != null) {
 			characters.add(p);
@@ -26,6 +34,15 @@ public class UnstableIceField extends IceField{
 	public void flip() {
 		for(Pawn pawn : characters)
 			pawn.fallIntoWater();
+		System.out.println("IceField "+name+ " flipped");
 	}
+
+    @Override
+    public String toString() {
+        String res= "capacity 0%n";
+
+        res+=toStringHelper();
+        return res;
+    }
 
 }

@@ -13,4 +13,9 @@ public class PolarBear {
 	public void setField(Field field) {
 		this.field = field;
 	}
+
+	@Override
+	public String toString() {
+		return "Bear "+field.name+"%n";
+	}
 }

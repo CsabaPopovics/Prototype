@@ -8,4 +8,8 @@ public class Shovel extends Item {
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		return "shovel";
+	}
 }
