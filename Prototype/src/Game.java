@@ -50,8 +50,8 @@ public class Game {
 	}
 	
 	public void setNeighbours() {
-		for(int i = 0; i < 10; i++) {
-			for(int j = 0; j < 10; j++) {
+		for(int i = 0; i < 9; i++) {
+			for(int j = 0; j < 9; j++) {
 				if(fieldArray[i][j]!=null){
 					fieldArray[i][j].setNeighbour(fieldArray[i][j+1], Direction.Right);
 					fieldArray[i][j].setNeighbour(fieldArray[i+1][j], Direction.Up);
@@ -59,14 +59,35 @@ public class Game {
 
 			}
 		}
+		for(int j=0;j<9;++j){
+			if(fieldArray[9][j]!=null){
+				fieldArray[9][j].setNeighbour(fieldArray[9][j+1], Direction.Right);
+			}
+		}
+		for(int i=0;i<9;++i){
+			if(fieldArray[i][9]!=null){
+				fieldArray[i][9].setNeighbour(fieldArray[i+1][9], Direction.Up);
+			}
+		}
 		
-		for(int i = 10; i > 0; i--) {
-			for(int j = 10; j > 0; j--) {
+		for(int i = 9; i > 0; i--) {
+			for(int j = 9; j > 0; j--) {
 				if(fieldArray[i][j]!=null){
 					fieldArray[i][j].setNeighbour(fieldArray[i][j-1], Direction.Left);
 					fieldArray[i][j].setNeighbour(fieldArray[i-1][j], Direction.Down);
 				}
 
+			}
+		}
+		for(int j=9;j<0;--j){
+			if(fieldArray[9][j]!=null){
+				fieldArray[9][j].setNeighbour(fieldArray[9][j-1], Direction.Left);
+			}
+		}
+
+		for(int i=9;i<0;--i){
+			if(fieldArray[i][9]!=null){
+				fieldArray[i][9].setNeighbour(fieldArray[i-1][9], Direction.Down);
 			}
 		}
 	}
