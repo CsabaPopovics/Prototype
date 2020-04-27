@@ -3,54 +3,54 @@ Character Alice
 type eskimo
 temperature 5
 workunits 4
-position Field12
+position Field_1_2
 isactive
 
 Character Bob
 type eskimo
 temperature 5
 workunits 4
-position Field12
+position Field_1_2
 
 Character Charlie
 type eskimo
 temperature 5
 workunits 4
-position Field13
+position Field_1_3
 
 Character Daniel
 type eskimo
 temperature 5
 workunits 4
-position Field13
+position Field_1_3
 
 Character Elemer
 type eskimo
 temperature 5
 workunits 4
-position Field14
+position Field_1_4
 
 Character Feri
 type eskimo
 temperature 5
 workunits 4
-position Field14
+position Field_1_4
 
-Field Field11
+Field Field_1_1
 capacity -1
 
-Field Field12
+Field Field_1_2
 capacity -1
 
-Field Field13
+Field Field_1_3
 capacity -1
 hasTent
 
-Field Field14
+Field Field_1_4
 capacity -1
 hasIgloo
 
-Bear Field11
+Bear Field_1_1
 
 determinism on
 

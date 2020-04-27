@@ -3,19 +3,19 @@ Character Alice
 type eskimo
 temperature 3
 workunits 4
-position Field11
+position Field_1_1
 isactive
 
 Character Bob
 type eskimo
 temperature 3
 workunits 4
-position Field11
+position Field_1_1
 
-Field11
+Field_1_1
 capacity -1
 
-Field12
+Field_1_2
 capacity 1
 
 End
