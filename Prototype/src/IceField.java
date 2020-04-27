@@ -47,6 +47,7 @@ public class IceField extends Field{
             }
 	        if(words[0].equals("")) return;
 	        if(words[0].equals("hasIgloo")) igloo=true;
+			if(words[0].equals("hasTent")) tent=true;
         }
         super.parse(scanner);
 
