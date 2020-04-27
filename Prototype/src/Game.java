@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -10,32 +11,38 @@ public class Game {
 	private static boolean end = false;
 	private static boolean win = false;
 	
-	private int maxLimit;
-	
-	private Field fields[][];
+	private Field fieldArray[][];
+	private ArrayList<Field> fields = new ArrayList<Field>();
 
 	private ArrayList<Pawn> characters = new ArrayList<Pawn>();
 	private PolarBear polarBear;
 	private Pawn activeCharacter=null;
 	public boolean determinism;
 	
+	public void convert2DArrayToArrayList() {
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++)
+				fields.add(fieldArray[i][j]);
+		}
+	}
+	
 	public void generateFields() {
-		fields = new Field[10][10];
+		fieldArray = new Field[10][10];
 		
 		for(int i = 0; i < 10; i++) {
 			for(int j = 0; j < 10; j++) {
 				if(i == 0 && j == 0) {
-					fields[i][j] = new IceField("Field" + (i+1) + (j+1));
+					fieldArray[i][j] = new IceField("Field" + (i+1) + (j+1));
 				}
 				Random random = new Random();
 				double typeChance = random.nextDouble();
 				if(typeChance <= 0.2) {
-					fields[i][j] = new Hole("Field" + (i+1) + (j+1));
+					fieldArray[i][j] = new Hole("Field" + (i+1) + (j+1));
 				} else if(typeChance > 0.2 && typeChance <= 0.7) {
-					fields[i][j] = new IceField("Field" + (i+1) + (j+1));
+					fieldArray[i][j] = new IceField("Field" + (i+1) + (j+1));
 				} else {
 					Random limit = new Random();
-					fields[i][j] = new UnstableIceField("Field" + (i+1) + (j+1), limit.nextInt(characters.size()));
+					fieldArray[i][j] = new UnstableIceField("Field" + (i+1) + (j+1), limit.nextInt(characters.size()));
 				}
 				
 			}
@@ -45,16 +52,25 @@ public class Game {
 	public void setNeighbours() {
 		for(int i = 0; i < 10; i++) {
 			for(int j = 0; j < 10; j++) {
-				fields[i][j].setNeighbour(fields[i][j+1], Direction.Right);
-				fields[i][j].setNeighbour(fields[i+1][j], Direction.Up);
+				fieldArray[i][j].setNeighbour(fieldArray[i][j+1], Direction.Right);
+				fieldArray[i][j].setNeighbour(fieldArray[i+1][j], Direction.Up);
 			}
 		}
 		
 		for(int i = 10; i > 0; i--) {
 			for(int j = 10; j > 0; j--) {
-				fields[i][j].setNeighbour(fields[i][j-1], Direction.Left);
-				fields[i][j].setNeighbour(fields[i-1][j], Direction.Down);
+				fieldArray[i][j].setNeighbour(fieldArray[i][j-1], Direction.Left);
+				fieldArray[i][j].setNeighbour(fieldArray[i-1][j], Direction.Down);
 			}
+		}
+	}
+	
+	public void insertField(Field f, int i, int j) {
+		if(i >= 0 && i < 10 && j >= 0 && j < 10) {
+			f.copyNeighbours(fieldArray[i][j]);
+			fields.remove(fieldArray[i][j]);
+			fields.add(f);
+			
 		}
 	}
 	
@@ -93,7 +109,7 @@ public class Game {
 		while(!placementSuccess) {
 			int i = new Random().nextInt(10);
 			int j = new Random().nextInt(10);
-			if(fields[i][j].setItem(item))
+			if(fieldArray[i][j].setItem(item))
 				placementSuccess = true;
 		}
 		
@@ -141,6 +157,7 @@ public class Game {
 		generateFields();
 		setNeighbours();
 		generateItems();
+		convert2DArrayToArrayList();
 	}
 
 
