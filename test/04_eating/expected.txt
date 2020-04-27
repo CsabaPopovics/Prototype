@@ -1,0 +1,34 @@
+Character Alice
+type eskimo
+temperature 4
+workunits 3
+position Field_1_1
+isactive
+
+Inventory Alice
+shovel
+fragileShovel 2
+
+Field Field_1_1
+capacity -1
+snow 0
+
+determinism off
+End
+Character Alice
+type eskimo
+temperature 4
+workunits 3
+position Field_1_1
+isactive
+
+Inventory Alice
+shovel
+fragileShovel 2
+
+Field Field_1_1
+capacity -1
+snow 0
+
+determinism off
+End
