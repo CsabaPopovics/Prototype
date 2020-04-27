@@ -33,7 +33,7 @@ flare
 fragileShovel 3
 food
 
-Field_1_1
+Field Field_1_1
 capacity -1
 snow 8
 

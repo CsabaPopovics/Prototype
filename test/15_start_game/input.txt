@@ -2,4 +2,5 @@ newGame
 addEskimo Alice
 addEskimo Bob
 addResearcher Charlie
-
+finishSetup
+exit

@@ -126,6 +126,7 @@ public class Game {
 				placeItem(new Shovel());
 			} else
 				placeItem(new Tent());
+			--itemCount;
 			
 		}
 		
@@ -142,7 +143,10 @@ public class Game {
 		
 	}
 
-	public static void partFound() {progress++;}
+	public static void partFound() {
+		progress++;
+
+	}
 
 	public static void end() { end = true;
 		System.out.println("Game ended");
@@ -151,8 +155,11 @@ public class Game {
 	public void checkConditions() {
 		if(progress == 3 && characters.get(0).getField().getCharacters().size() == characters.size()) {
 			win = true;
+			System.out.println("Flaregun Successfully Used");
+			end();
 		} else
 			progress = 0;
+			if(!win)System.out.println("Flaregun Assembly Failed");
 			
 	}
 
@@ -164,19 +171,32 @@ public class Game {
 
 	public void setup(Scanner lineScanner){
 		boolean read=true;
-
+		boolean exit=false;
+		System.out.println("adj hozzá legalább 3 játékost");
 		while(lineScanner.hasNextLine() && read){
-			if(characters.size()<3) System.out.println("adj hozzá legalább 3 játékost");
+
 			String[] words=lineScanner.nextLine().split(" ");
 			if(words.length==2){
 				if(words[0].equals("addEskimo")) characters.add(new Eskimo(words[1]));
 				if(words[0].equals("addResearcher")) characters.add(new Eskimo(words[1]));
 			}
-			if(words[0].equals("finishSetup")) read=false;
+			if(words[0].equals("finishSetup")) {
+				if(characters.size()>=3){
+					read=false;
+				}
+				else{
+					System.out.println("adj hozzá legalább 3 játékost");
+				}
+
+			}
+			if(words[0].equals("exit")) {
+				read=false;
+				exit=true;
+			}
 
 		}
 
-		init();
+		if(!exit)init();
 	}
 
 	//fieldek generálása, karakterek elhelyezése

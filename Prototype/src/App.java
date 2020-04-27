@@ -5,7 +5,7 @@ import static java.lang.Integer.parseInt;
 public class App {
 	private static Game game;
 	private static Scanner lineScanner;
-	//private static boolean determinism;
+	private static boolean exit=false;
 
 	public static void main(String[] args) {
 		processInput();
@@ -15,7 +15,7 @@ public class App {
 		lineScanner=new Scanner(System.in);
 		String line;
 		String[] words;
-		while(lineScanner.hasNextLine()){
+		while(lineScanner.hasNextLine() && !exit){
 			line=lineScanner.nextLine();
 			words=line.split(" ");
 			if(words[0]!=null){
@@ -30,7 +30,7 @@ public class App {
 						tester.run(parseInt(words[1]));
 						break;
 
-
+					case "exit":exit=true;break;
 					case "newGame":
 						game=newGame(lineScanner);
 						break;
