@@ -123,7 +123,7 @@ public class App {
 	}
 
 	private static void storm(String[] words) {
-		String error="Szintaxis: storm fieldNev";
+		String error="Szintaxis: storm fieldNev mennyiseg";
 		if(words.length==3 && game.determinism){
 			try{
 				game.blizzardAt(words[1], parseInt(words[2]));

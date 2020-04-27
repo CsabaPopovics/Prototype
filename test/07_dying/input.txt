@@ -22,5 +22,5 @@ capacity 0
 determinism on
 
 End
-storm field_1_1
+storm Field_1_1 10
 saveGame

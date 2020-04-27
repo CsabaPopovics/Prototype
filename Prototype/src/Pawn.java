@@ -67,6 +67,7 @@ public class Pawn {
 	public void updateBodyTemp(int i) {
 		bodyTemp += i;
 		if(bodyTemp == 0)
+			System.out.println(name+" has frozen");
 			die();
 		
 	}

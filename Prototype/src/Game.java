@@ -195,8 +195,8 @@ public class Game {
 
 	//Adott mezőn a hóvihar, amount a tesztek miatt kell
 	public void blizzardAt(String fieldName, int amount) {
-		for (Field f: fields
-			 ) {
+		for (Field f: fields) {
+
 			if(f.name.equals(fieldName)){
 				if(determinism){
 					f.updateSnow(amount);
@@ -398,8 +398,7 @@ public class Game {
 		for(Field f:fields){
 			for(Pawn p:characters){
 				if(f.name.equals(p.starterFieldName)){
-					f.placePawnFirstTime(p);
-					p.field=f;
+					f.accept(p);
 				}
 			}
 		}
@@ -416,6 +415,41 @@ public class Game {
 		activeCharacter=characters.get(newindex);
 		activeCharacter.finished=false;
 		activeCharacter.setAsActive();
+		if(newindex==0) nextTurn();
+
+
+	}
+
+	private void nextTurn() {
+		for(Field f:fields){
+			f.resetTent();
+			blizzardAt(f, 1);
+
+		}
+		polarBearRandom();
+	}
+
+	private void polarBearRandom() {
+		if(!determinism){
+			Random random=new Random();
+			switch (random.nextInt(4)){
+				case 0: polarBear.step(Direction.Right);break;
+				case 1: polarBear.step((Direction.Left));break;
+				case 2: polarBear.step(Direction.Down);break;
+				case 3: polarBear.step(Direction.Up);break;
+			}
+		}
+	}
+
+	private void blizzardAt(Field f, int amount) {
+		if(!determinism){
+			Random r=new Random();
+			if(r.nextInt(10)==0){
+				f.updateSnow(r.nextInt(3)+1);
+			}
+		}
+		else f.updateSnow(amount);
+
 
 	}
 }
