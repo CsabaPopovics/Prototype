@@ -11,7 +11,7 @@ public class App {
 		processInput();
 	}
 
-	private static void processInput() {
+	public static void processInput() {
 		lineScanner=new Scanner(System.in);
 		String line;
 		String[] words;
@@ -20,6 +20,9 @@ public class App {
 			words=line.split(" ");
 			if(words[0]!=null){
 				switch (words[0]){
+					case "test":
+						Tester tester=new Tester();
+						tester.runAll();
 					case "newGame":
 						game=newGame(lineScanner);
 						break;
