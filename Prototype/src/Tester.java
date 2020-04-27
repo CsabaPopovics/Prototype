@@ -6,21 +6,34 @@ import java.util.Scanner;
 
 public class Tester {
     private File testFolder;
+    private File[] testCaseFolders;
+    private ArrayList<File> cases;
     public Tester(){
         String currentDirectory = System.getProperty("user.dir");
         testFolder= new File(currentDirectory, "test");
+        testCaseFolders=testFolder.listFiles();
+        cases=new ArrayList<File>(Arrays.asList(testCaseFolders));
+        Collections.sort(cases);
     }
 
     public void runAll(){
-        File[] testCaseFolders=testFolder.listFiles();
-        ArrayList<File> cases=new ArrayList<File>(Arrays.asList(testCaseFolders));
-        Collections.sort(cases);
-
         for(File f:cases){
             if(f.isDirectory()){
                 runInput(f);
                 compareOutput(f);
             }
+        }
+    }
+
+    //i>=1
+    public void run(int i){
+        if(i<=cases.size() && i>=1){
+            File testcase=cases.get(i-1);
+            runInput(testcase);
+            compareOutput(testcase);
+        }
+        else{
+            System.out.println("No such test");
         }
     }
 

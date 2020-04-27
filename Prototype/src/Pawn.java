@@ -10,7 +10,7 @@ public class Pawn {
 	protected int bodyTemp = 4;
 	protected int workUnit = 4;
 
-	private boolean finished = false;
+	protected boolean finished = false;
 	private boolean isActive = false;
 
 

@@ -22,7 +22,13 @@ public class App {
 				switch (words[0]){
 					case "test":
 						Tester tester=new Tester();
-						tester.runAll();
+						if(words.length==1){
+
+							tester.runAll();
+						}
+						tester.run(parseInt(words[1]));
+
+
 					case "newGame":
 						game=newGame(lineScanner);
 						break;

@@ -3,7 +3,7 @@ type eskimo
 temperature 3
 workunits 4
 position Field11
-isActive
+isactive
 
 Inventory Alice
 shovel

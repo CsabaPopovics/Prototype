@@ -22,7 +22,7 @@ public class Game {
 	public void convert2DArrayToArrayList() {
 		for(int i = 0; i < 10; i++) {
 			for(int j = 0; j < 10; j++)
-				fields.add(fieldArray[i][j]);
+				if((fieldArray[i][j])!=null)fields.add(fieldArray[i][j]);
 		}
 	}
 	
@@ -52,15 +52,21 @@ public class Game {
 	public void setNeighbours() {
 		for(int i = 0; i < 10; i++) {
 			for(int j = 0; j < 10; j++) {
-				fieldArray[i][j].setNeighbour(fieldArray[i][j+1], Direction.Right);
-				fieldArray[i][j].setNeighbour(fieldArray[i+1][j], Direction.Up);
+				if(fieldArray[i][j]!=null){
+					fieldArray[i][j].setNeighbour(fieldArray[i][j+1], Direction.Right);
+					fieldArray[i][j].setNeighbour(fieldArray[i+1][j], Direction.Up);
+				}
+
 			}
 		}
 		
 		for(int i = 10; i > 0; i--) {
 			for(int j = 10; j > 0; j--) {
-				fieldArray[i][j].setNeighbour(fieldArray[i][j-1], Direction.Left);
-				fieldArray[i][j].setNeighbour(fieldArray[i-1][j], Direction.Down);
+				if(fieldArray[i][j]!=null){
+					fieldArray[i][j].setNeighbour(fieldArray[i][j-1], Direction.Left);
+					fieldArray[i][j].setNeighbour(fieldArray[i-1][j], Direction.Down);
+				}
+
 			}
 		}
 	}
@@ -228,6 +234,7 @@ public class Game {
 	public static Game parse(Scanner scanner){
 		String[] words=null;
 		Game game=new Game();
+		List<Field> myCustomFields=new ArrayList<Field>();
 		boolean parse=true;
 		while(scanner.hasNextLine() && parse){
 			words=scanner.nextLine().split(" ");
@@ -268,13 +275,13 @@ public class Game {
 									if (words[1].equals("0")) {
 										f = new Hole(fieldName);
 										f.parse(scanner);
-										game.fields.add(f);
+										myCustomFields.add(f);
 										break;
 									}
 									if (words[1].equals("-1")) {
 										f = new IceField(fieldName);
 										f.parse(scanner);
-										game.fields.add(f);
+										myCustomFields.add(f);
 										break;
 									}
 
@@ -310,9 +317,27 @@ public class Game {
 
 		}
 		game.placePawnsToFieldsFirstTime();
+		game.setupCustomFields(myCustomFields);
 		game.setActivePawn();
 		return game;
 
+	}
+
+	private void setupCustomFields(List<Field> myCustomFields) {
+		Field[][] myFieldArray=new Field[10][10];
+		for(Field f: myCustomFields){
+			String[] words=f.name.split("_");
+			if(words.length==3){
+				int i=parseInt(words[1]);
+				int j=parseInt(words[2]);
+				if(0<=i && i<10 && 0<=j && j<10){
+					myFieldArray[i][j]=f;
+				}
+			}
+		}
+		fieldArray=myFieldArray;
+		generateFields();
+		setNeighbours();
 	}
 
 	//a listában levő itemeket hozzáadja az adott indexű karakterhez
@@ -328,6 +353,7 @@ public class Game {
 			if(p.name.equals(characterName))
 				return p;
 		}
+		return null;
 	}
 
 	///Betöltéshez kell

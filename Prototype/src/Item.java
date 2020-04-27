@@ -45,6 +45,7 @@ public abstract class Item {
         while (scanner.hasNextLine() && parse){
             String[] words=scanner.nextLine().split(" ");
             if(words.length>0)
+                if(words[0].equals("")) return inventory;
                 inventory.addAll(parseItem(words));
             if(words.length==0) parse=false;
         }
