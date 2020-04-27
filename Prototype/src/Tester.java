@@ -1,4 +1,7 @@
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Tester {
@@ -10,7 +13,10 @@ public class Tester {
 
     public void runAll(){
         File[] testCaseFolders=testFolder.listFiles();
-        for(File f:testCaseFolders){
+        ArrayList<File> cases=new ArrayList<File>(Arrays.asList(testCaseFolders));
+        Collections.sort(cases);
+
+        for(File f:cases){
             if(f.isDirectory()){
                 runInput(f);
                 compareOutput(f);
