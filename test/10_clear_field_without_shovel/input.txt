@@ -11,13 +11,13 @@ shovel
 fragileShovel 3
 food
 
-Field_1_1
+Field Field_1_1
 capacity -1
-snow 8
 ammo
+snow 8
 
 End
 clearSnow null
-clearSnow 3
+clearSnow 2
 saveGame
 

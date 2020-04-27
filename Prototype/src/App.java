@@ -184,7 +184,12 @@ public class App {
 		String error="clearSnow index";
 		if(words.length==2){
 			Pawn pawn=game.getActivePawn();
-			Item i=pawn.getItem(parseInt(words[1]));
+			Item i;
+			if(words[1].equals("null")) i=null;
+			else{
+				i=pawn.getItem(parseInt(words[1]));
+			}
+
 			pawn.clearSnow(i);
 		}
 		else System.out.println(error);

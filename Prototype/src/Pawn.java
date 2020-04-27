@@ -107,8 +107,10 @@ public class Pawn {
 			cleaningWithItem = i.use("Clear");
 		}
 		
-		if(cleaningWithItem || field.updateSnow(-1))
+		else{
+			field.updateSnow(-1);
 			workUnit--;
+		}
 	}
 	
 	public void fire() { game.checkConditions();}

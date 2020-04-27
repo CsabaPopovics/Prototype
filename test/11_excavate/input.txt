@@ -9,10 +9,10 @@ isactive
 Inventory Alice
 food
 
-Field_1_1
+Field Field_1_1
 capacity -1
+item rope
 snow 0
-rope
 
 End
 excavate
