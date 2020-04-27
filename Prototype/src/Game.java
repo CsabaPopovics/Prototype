@@ -300,7 +300,17 @@ public class Game {
 
 	//a listában levő itemeket hozzáadja az adott indexű karakterhez
 	private void addItemsToCharacter(List<Item> parseItemList, String characterName) {
-		throw new UnsupportedOperationException("Not Implemented");
+		Pawn character=getCharacterByName(characterName);
+		for(Item i:parseItemList){
+			character.addToInventory(i);
+		}
+	}
+
+	private Pawn getCharacterByName(String characterName) {
+		for(Pawn p: characters){
+			if(p.name.equals(characterName))
+				return p;
+		}
 	}
 
 	///Betöltéshez kell

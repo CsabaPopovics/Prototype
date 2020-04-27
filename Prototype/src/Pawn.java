@@ -9,15 +9,15 @@ public class Pawn {
 	protected ArrayList<Item> inventory = new ArrayList<Item>();
 	protected int bodyTemp = 4;
 	protected int workUnit = 4;
-<<<<<<< HEAD
+
 	private boolean finished = false;
 	private boolean isActive = false;
-=======
-	protected boolean finished = false;
+
+
 	protected String starterFieldName; //Csak parserhez kell, később nem érdekes
 	protected boolean starterIsActive=false; //Csak parserhez kell
 	protected Game game;
->>>>>>> 763dc6603cb0e6d8dad5ccab55c88ccde9fc350d
+
 	
 	public Pawn() {}
 	
@@ -230,10 +230,10 @@ public class Pawn {
 	public void resetWorkunits() {
 		workUnit = 4;
 	}
-<<<<<<< HEAD
+
 	
 	public void setAsActive() {isActive = true;}
-=======
+
 
 	@Override
 	public String toString() {
@@ -264,5 +264,5 @@ public class Pawn {
 		Pawn active=game.getActivePawn();
 		return active.equals(this);
 	}
->>>>>>> 763dc6603cb0e6d8dad5ccab55c88ccde9fc350d
+
 }
