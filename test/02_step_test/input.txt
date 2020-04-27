@@ -29,6 +29,30 @@ scubasuit
 fragileShovel 2
 food
 
+Field Field_1_1
+capacity -1
+item ammo
+snow 8
+
+Field Field_1_2
+capacity -1
+item ammo
+snow 8
+
+Field Field_2_1
+capacity 3
+item ammo
+snow 8
+hasTent
+
+Field Field_1_0
+capacity 0
+item ammo
+snow 8
+
+
+determinism on
+
 End
 
 step up

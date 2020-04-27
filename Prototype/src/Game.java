@@ -54,7 +54,7 @@ public class Game {
 			for(int j = 0; j < 9; j++) {
 				if(fieldArray[i][j]!=null){
 					fieldArray[i][j].setNeighbour(fieldArray[i][j+1], Direction.Right);
-					fieldArray[i][j].setNeighbour(fieldArray[i+1][j], Direction.Up);
+					fieldArray[i][j].setNeighbour(fieldArray[i+1][j], Direction.Down);
 				}
 
 			}
@@ -66,7 +66,7 @@ public class Game {
 		}
 		for(int i=0;i<9;++i){
 			if(fieldArray[i][9]!=null){
-				fieldArray[i][9].setNeighbour(fieldArray[i+1][9], Direction.Up);
+				fieldArray[i][9].setNeighbour(fieldArray[i+1][9], Direction.Down);
 			}
 		}
 		
@@ -74,7 +74,7 @@ public class Game {
 			for(int j = 9; j > 0; j--) {
 				if(fieldArray[i][j]!=null){
 					fieldArray[i][j].setNeighbour(fieldArray[i][j-1], Direction.Left);
-					fieldArray[i][j].setNeighbour(fieldArray[i-1][j], Direction.Down);
+					fieldArray[i][j].setNeighbour(fieldArray[i-1][j], Direction.Up);
 				}
 
 			}
@@ -87,7 +87,7 @@ public class Game {
 
 		for(int i=9;i<0;--i){
 			if(fieldArray[i][9]!=null){
-				fieldArray[i][9].setNeighbour(fieldArray[i-1][9], Direction.Down);
+				fieldArray[i][9].setNeighbour(fieldArray[i-1][9], Direction.Up);
 			}
 		}
 	}
@@ -236,7 +236,7 @@ public class Game {
 		if(fields!=null){
 			for (Field f:fields
 			) {
-				res+=f.toString()+String.format("%n%n");
+				res+=f.toString()+String.format("%n");
 			}
 		}
 		if(polarBear!=null){
@@ -252,7 +252,7 @@ public class Game {
 
 	}
 
-	public static Game parse(Scanner scanner){
+	public static Game parse(Scanner scanner) throws Exception {
 		String[] words=null;
 		Game game=new Game();
 		List<Field> myCustomFields=new ArrayList<Field>();
@@ -307,7 +307,9 @@ public class Game {
 									}
 
 								}
-								f=new UnstableIceField(fieldName, parseInt(words[1])); break;
+								f=new UnstableIceField(fieldName, parseInt(words[1]));
+								myCustomFields.add(f);
+								break;
 							}
 						}
 						//if(f!=null) f.parse(scanner);
@@ -337,8 +339,9 @@ public class Game {
 			}
 
 		}
-		game.placePawnsToFieldsFirstTime();
+		if(myCustomFields.size()==0) throw new Exception("Nincs egy field se");
 		game.setupCustomFields(myCustomFields);
+		game.placePawnsToFieldsFirstTime();
 		game.setActivePawn();
 		return game;
 
@@ -357,7 +360,7 @@ public class Game {
 			}
 		}
 		fieldArray=myFieldArray;
-		generateFields();
+		convert2DArrayToArrayList();
 		setNeighbours();
 	}
 
@@ -403,5 +406,15 @@ public class Game {
 
 	public int getCharacterNumber(Pawn pawn) {
 		return characters.indexOf(pawn);
+	}
+
+	//pawn aki lemondott róla (finishelt)
+	public void setActiveCharacter(Pawn pawn) {
+		int newindex=characters.indexOf(pawn)+1;
+		newindex=newindex%characters.size();
+		activeCharacter=characters.get(newindex);
+		activeCharacter.finished=false;
+		activeCharacter.setAsActive();
+
 	}
 }

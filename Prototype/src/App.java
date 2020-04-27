@@ -25,8 +25,10 @@ public class App {
 						if(words.length==1){
 
 							tester.runAll();
+							break;
 						}
 						tester.run(parseInt(words[1]));
+						break;
 
 
 					case "newGame":
@@ -86,7 +88,12 @@ public class App {
 	}
 
 	private static Game loadGame() {
-		if(lineScanner!=null) return Game.parse(lineScanner);
+		try {
+			if(lineScanner!=null) return Game.parse(lineScanner);
+		} catch (Exception e) {
+			System.err.println(e.toString());
+			e.printStackTrace();
+		}
 		return null;
 	}
 

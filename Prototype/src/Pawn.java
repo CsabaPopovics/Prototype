@@ -59,7 +59,7 @@ public class Pawn {
 	public void setField(Field field) { this.field = field;}
 
 	public void die() {
-		System.out.println("Character "+game.getCharacterNumber(this)+" died");
+		System.out.println("Character "+name+" died");
 		Game.end();}
 
 
@@ -93,8 +93,10 @@ public class Pawn {
 		Field destination = field.getNeighbour(d);
 		if(destination != null) {
 			field.remove(this);
+			System.out.println(name+" steps "+d.toString());
 			destination.accept(this);
 			workUnit--;
+
 		}
 	}
 	
@@ -177,7 +179,7 @@ public class Pawn {
 	}
 	
 	public void fallIntoWater() {
-		System.out.println("Character "+game.getCharacterNumber(this)+" fallen into water");
+		System.out.println("Character "+name+" fallen into water");
 		for(Item i : inventory) {
 			if(putOn(i))
 				return;
@@ -225,6 +227,7 @@ public class Pawn {
 	public void finish() {
 		finished = true;
 		isActive = false;
+		game.setActiveCharacter(this);
 	}
 	
 	public void resetWorkunits() {
@@ -254,7 +257,7 @@ public class Pawn {
 
 			for (Item i: inventory
 				 ) {
-				res+=i.toString()+"%n";
+				res+=i.toString()+String.format("%n");
 			}
 		}
 		return res;
