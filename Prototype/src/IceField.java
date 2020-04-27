@@ -27,7 +27,7 @@ public class IceField extends Field{
 
     protected String toStringHelper(){
         String res= super.toString();
-        if(item!=null) res+=item.toString();
+        if(item!=null) res+="item "+item.toString();
         return res;
     }
 

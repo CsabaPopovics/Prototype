@@ -27,7 +27,7 @@ public abstract class Item {
                     inv.add(new Flare());break;
                 case "pistol":
                     inv.add(new Pistol());break;
-                default: return null;
+                default: return inv;
             }
         }
         if(words.length==2){
@@ -44,18 +44,11 @@ public abstract class Item {
         List<Item> inventory=new ArrayList<Item>();
         while (scanner.hasNextLine() && parse){
             String[] words=scanner.nextLine().split(" ");
-            if(words.length>0)inventory.addAll(parseItem(words));
+            if(words.length>0)
+                inventory.addAll(parseItem(words));
             if(words.length==0) parse=false;
         }
         return inventory;
-
-
-
-
-
-
-
-
 
     }
 

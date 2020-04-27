@@ -3,7 +3,9 @@ type eskimo
 temperature 2
 workunits 4
 position Field11
-isActive
+isactive
+
+Inventory Alice
 
 Character Bob
 type eskimo
@@ -11,28 +13,32 @@ temperature 3
 workunits 4
 position Field12
 
+Inventory Bob
+
 Character Charlie
 type eskimo
 temperature 3
 workunits 4
 position Field13
 
+Inventory Charlie
+
 Field Field11
 capacity -1
-item ammo
 snow 10
+item ammo
 
 Field Field12
 capacity -1
-item ammo
 snow 9
 hasIgloo
+item ammo
 
 Field Field13
 capacity -1
-item ammo
 snow 9
 hasTent
+item ammo
 
-
-
+determinism on
+End
