@@ -49,4 +49,13 @@ public class IceField extends Field{
         super.parse(scanner);
 
     }
+
+	@Override
+	public boolean setItem(Item i) {
+		if(item != null) {
+			item = i;
+			return true;
+		}
+		return false;
+	}
 }

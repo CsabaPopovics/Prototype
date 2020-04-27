@@ -10,14 +10,94 @@ public class Game {
 	private static boolean end = false;
 	private static boolean win = false;
 	
-	private ArrayList<Field> fields = new ArrayList<Field>();
+	private int maxLimit;
+	
+	private Field fields[][];
 
 	private ArrayList<Pawn> characters = new ArrayList<Pawn>();
 	private PolarBear polarBear;
 	private Pawn activeCharacter=null;
 	public boolean determinism;
-
-
+	
+	public void generateFields() {
+		fields = new Field[10][10];
+		
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++) {
+				if(i == 0 && j == 0) {
+					fields[i][j] = new IceField("Field" + (i+1) + (j+1));
+				}
+				Random random = new Random();
+				double typeChance = random.nextDouble();
+				if(typeChance <= 0.2) {
+					fields[i][j] = new Hole("Field" + (i+1) + (j+1));
+				} else if(typeChance > 0.2 && typeChance <= 0.7) {
+					fields[i][j] = new IceField("Field" + (i+1) + (j+1));
+				} else {
+					Random limit = new Random();
+					fields[i][j] = new UnstableIceField("Field" + (i+1) + (j+1), limit.nextInt(characters.size()));
+				}
+				
+			}
+		}
+	}
+	
+	public void setNeighbours() {
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++) {
+				fields[i][j].setNeighbour(fields[i][j+1], Direction.Right);
+				fields[i][j].setNeighbour(fields[i+1][j], Direction.Up);
+			}
+		}
+		
+		for(int i = 10; i > 0; i--) {
+			for(int j = 10; j > 0; j--) {
+				fields[i][j].setNeighbour(fields[i][j-1], Direction.Left);
+				fields[i][j].setNeighbour(fields[i-1][j], Direction.Down);
+			}
+		}
+	}
+	
+	public void generateItems() {
+		Ammo ammo = new Ammo();
+		placeItem(ammo);
+		Pistol pistol = new Pistol();
+		placeItem(pistol);
+		Flare flare = new Flare();
+		placeItem(flare);
+		Random random = new Random();
+		int itemCount = new Random().nextInt(50);
+		double itemType;
+		
+		while(itemCount>0) {
+			itemType = random.nextDouble();
+			if(itemType <= 0.15) {
+				placeItem(new Food());
+			} else if(itemType > 0.15 && itemType <= 0.3) {
+				placeItem(new FragileShovel());
+			} else if(itemType > 0.3 && itemType <= 0.45) {
+				placeItem(new Rope());
+			} else if(itemType > 0.45 && itemType <= 0.6) {
+				placeItem(new Scubasuit());
+			} else if(itemType > 0.6 && itemType <= 0.75) {
+				placeItem(new Shovel());
+			} else
+				placeItem(new Tent());
+			
+		}
+		
+	}
+	
+	public void placeItem(Item item) {
+		boolean placementSuccess = false;
+		while(!placementSuccess) {
+			int i = new Random().nextInt(10);
+			int j = new Random().nextInt(10);
+			if(fields[i][j].setItem(item))
+				placementSuccess = true;
+		}
+		
+	}
 
 	public static void partFound() {progress++;}
 
@@ -58,7 +138,9 @@ public class Game {
 
 	//fieldek generálása, karakterek elhelyezése
 	private void init() {
-		throw new UnsupportedOperationException("Not Implemented");
+		generateFields();
+		setNeighbours();
+		generateItems();
 	}
 
 

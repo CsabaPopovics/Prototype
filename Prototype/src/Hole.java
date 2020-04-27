@@ -31,4 +31,9 @@ public class Hole extends Field{
 		res+=super.toString();
 		return res;
 	}
+
+	@Override
+	public boolean setItem(Item i) {
+		return false;
+	}
 }

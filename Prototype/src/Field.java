@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
-public class Field {
+public abstract class Field {
 	protected int snowLevel;
 	protected int limit = -1;
 	protected boolean tent = false;
@@ -63,6 +63,10 @@ public class Field {
 
 		}
 		return;
+	}
+	
+	public void setNeighbour(Field f, Direction d) {
+		neighbours.put(d, f);
 	}
 
 	public void accept(Pawn p) {
@@ -144,6 +148,8 @@ public class Field {
 	public void removeItem() {
 		return;
 	}
+	
+	public abstract boolean setItem(Item i);
 	
 	public boolean setIgloo() {
 		if(igloo)

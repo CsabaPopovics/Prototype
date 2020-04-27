@@ -19,6 +19,10 @@ public class UnstableIceField extends IceField{
 		limit=capacity;
 
     }
+    
+    public void setLimit(int limit) {
+    	this.limit = limit;
+    }
 
     @Override
 	public void accept(Pawn p) {

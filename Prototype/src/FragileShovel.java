@@ -1,6 +1,8 @@
 
 public class FragileShovel extends Shovel{
 	private int usageCount = 0;
+	
+	public FragileShovel() {}
 
 	public FragileShovel(int usageCount) {
 		this.usageCount=usageCount;
