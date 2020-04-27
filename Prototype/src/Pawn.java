@@ -8,6 +8,7 @@ public class Pawn {
 	protected int bodyTemp = 4;
 	protected int workUnit = 4;
 	private boolean finished = false;
+	private boolean isActive = false;
 	
 	public Pawn() {}
 	
@@ -172,22 +173,17 @@ public class Pawn {
 	}
 	
 	public void command() {
-		Scanner lineScanner = new Scanner(System.in);
-		String line;
-		String[] words;
-		while(!finished && workUnit > 0) {
-			line=lineScanner.nextLine();
-			words=line.split(" ");
-			
-		}
 		
 	}
 
 	public void finish() {
 		finished = true;
+		isActive = false;
 	}
 	
 	public void resetWorkunits() {
 		workUnit = 4;
 	}
+	
+	public void setAsActive() {isActive = true;}
 }
