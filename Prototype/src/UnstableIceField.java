@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class UnstableIceField extends IceField{
 
-	private int limit;
+	private int limit;// Ha ennyi van rajta, még épp nem fordul át
 	
 	public UnstableIceField() {
 		super();
@@ -29,16 +29,17 @@ public class UnstableIceField extends IceField{
 		if(p != null) {
 			characters.add(p);
 			p.setField(this);
-			if(characters.size() >= limit) {
+			if(characters.size() > limit) { //limitnél még épp ne forduljon át
 				flip();
 			}
 		}
 	}
 	
 	public void flip() {
+		System.out.println("IceField "+name+ " flipped");
 		for(Pawn pawn : characters)
 			pawn.fallIntoWater();
-		System.out.println("IceField "+name+ " flipped");
+
 	}
 
     @Override

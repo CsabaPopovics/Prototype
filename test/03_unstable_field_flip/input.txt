@@ -12,12 +12,15 @@ temperature 3
 workunits 4
 position Field_1_1
 
-Field_1_1
+Field Field_1_1
 capacity -1
 
-Field_1_2
+Field Field_2_1
 capacity 1
 
 End
 step down
+finish
+step down
+finish
 saveGame

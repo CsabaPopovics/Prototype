@@ -1,0 +1,36 @@
+Alice steps Down
+Bob steps Down
+IceField Field_2_1 flipped
+Character Alice fallen into water
+Character Alice died
+Game ended
+Character Bob fallen into water
+Character Bob died
+Game ended
+Character Alice
+type eskimo
+temperature 3
+workunits 3
+position Field_2_1
+isactive
+
+Inventory Alice
+
+Character Bob
+type eskimo
+temperature 3
+workunits 3
+position Field_2_1
+
+Inventory Bob
+
+Field Field_1_1
+capacity -1
+snow 0
+
+Field Field_2_1
+capacity 0
+snow 0
+
+determinism off
+End
