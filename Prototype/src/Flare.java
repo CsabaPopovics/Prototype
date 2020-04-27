@@ -11,4 +11,9 @@ public class Flare extends Item {
 		System.out.println("Invalid use of Flare!");
 		return false;
 	}
+
+	@Override
+	public String toString() {
+		return "flare";
+	}
 }

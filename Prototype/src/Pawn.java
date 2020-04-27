@@ -1,26 +1,68 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static java.lang.Integer.parseInt;
+
 public class Pawn {
 	protected String name;
 	protected Field field;
 	protected ArrayList<Item> inventory = new ArrayList<Item>();
 	protected int bodyTemp = 4;
 	protected int workUnit = 4;
+<<<<<<< HEAD
 	private boolean finished = false;
 	private boolean isActive = false;
+=======
+	protected boolean finished = false;
+	protected String starterFieldName; //Csak parserhez kell, később nem érdekes
+	protected boolean starterIsActive=false; //Csak parserhez kell
+	protected Game game;
+>>>>>>> 763dc6603cb0e6d8dad5ccab55c88ccde9fc350d
 	
 	public Pawn() {}
 	
 	public Pawn(String name) {this.name = name;}
-	
+
+	protected static Pawn parse(Scanner scanner, String name) {
+		String[] words=null;
+		Pawn p=new Pawn(name);
+		boolean parse=true;
+		while(scanner.hasNextLine() && parse){
+			words=scanner.nextLine().split(" ");
+			switch (words[0]){
+				case "temperature":
+					if(words.length==2) p.bodyTemp=parseInt(words[1]);
+					break;
+				case "workunits":
+					if(words.length==2) p.workUnit=parseInt(words[1]);
+					break;
+				case "position":
+					if(words.length==2) p.starterFieldName=words[1];
+					break;
+				case "isactive":
+					p.starterIsActive=true;
+					break;
+				case "":
+					parse=false;
+					break;
+				default:
+					break;
+			}
+		}
+		return p;
+	}
+
 	public String getName() { return name;}
 	
 	public void setName(String name) {this.name = name;}
 	
 	public void setField(Field field) { this.field = field;}
 
-	public void die() { Game.end();}
+	public void die() {
+		System.out.println("Character "+game.getCharacterNumber(this)+" died");
+		Game.end();}
+
+
 
 	public void updateBodyTemp(int i) {
 		bodyTemp += i;
@@ -66,7 +108,7 @@ public class Pawn {
 			workUnit--;
 	}
 	
-	public void fire() { Game.checkConditions();}
+	public void fire() { game.checkConditions();}
 	
 	public void assembleGun() {
 		for(Pawn p : field.getCharacters()) {
@@ -94,7 +136,9 @@ public class Pawn {
 	public boolean rescue(Pawn p) {
 		for(Item i : inventory) {
 			if(throwRope(i, p)) {
+				System.out.println("Character "+game.getCharacterNumber(this)+" was rescued");
 				return true;
+
 			}
 		}
 		return false;
@@ -133,12 +177,14 @@ public class Pawn {
 	}
 	
 	public void fallIntoWater() {
+		System.out.println("Character "+game.getCharacterNumber(this)+" fallen into water");
 		for(Item i : inventory) {
 			if(putOn(i))
 				return;
 		}
 		if(!cryForHelp())
 			die();
+
 	}
 	
 	public void addPart(Item i) {
@@ -184,6 +230,39 @@ public class Pawn {
 	public void resetWorkunits() {
 		workUnit = 4;
 	}
+<<<<<<< HEAD
 	
 	public void setAsActive() {isActive = true;}
+=======
+
+	@Override
+	public String toString() {
+		String res=	"temperature "+bodyTemp+String.format("%n")+
+					"workunits "+workUnit+String.format("%n")+
+					"position " +field.name+String.format("%n");
+		if(isActive()){
+			res+=String.format("isactive%n");
+		}
+		return res;
+
+
+	}
+
+	public String inventoryToString(){
+		String res="";
+		if(inventory!=null){
+
+			for (Item i: inventory
+				 ) {
+				res+=i.toString()+"%n";
+			}
+		}
+		return res;
+	}
+
+	private boolean isActive() {
+		Pawn active=game.getActivePawn();
+		return active.equals(this);
+	}
+>>>>>>> 763dc6603cb0e6d8dad5ccab55c88ccde9fc350d
 }

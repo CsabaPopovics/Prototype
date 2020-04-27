@@ -11,4 +11,9 @@ public class Pistol extends Item {
 		System.out.println("Invalid use of Pistol!");
 		return false;
 	}
+
+	@Override
+	public String toString() {
+		return "pistol";
+	}
 }

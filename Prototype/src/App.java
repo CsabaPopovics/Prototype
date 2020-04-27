@@ -5,13 +5,13 @@ import static java.lang.Integer.parseInt;
 public class App {
 	private static Game game;
 	private static Scanner lineScanner;
-	private static boolean determinism;
+	//private static boolean determinism;
 
 	public static void main(String[] args) {
 		processInput();
 	}
 
-	private static void processInput() {
+	public static void processInput() {
 		lineScanner=new Scanner(System.in);
 		String line;
 		String[] words;
@@ -20,6 +20,9 @@ public class App {
 			words=line.split(" ");
 			if(words[0]!=null){
 				switch (words[0]){
+					case "test":
+						Tester tester=new Tester();
+						tester.runAll();
 					case "newGame":
 						game=newGame(lineScanner);
 						break;
@@ -66,6 +69,7 @@ public class App {
 						bear(words);
 						break;
 					///////// tesztek
+					case "": break;
 					default:
 						System.out.println("No recognized command");
 						break;
@@ -75,9 +79,14 @@ public class App {
 		}
 	}
 
+	private static Game loadGame() {
+		if(lineScanner!=null) return Game.parse(lineScanner);
+		return null;
+	}
+
 	private static void bear(String[] words) {
 		String error="Szintaxis: bear {up|down|right|left}";
-		if(words.length==2 && determinism){
+		if(words.length==2 && game.determinism){
 			PolarBear bear=game.getPolarBear();
 			switch (words[1]){
 				case "up":
@@ -101,15 +110,15 @@ public class App {
 	}
 
 	private static void storm(String[] words) {
-		String error="Szintaxis: storm i j";
-		if(words.length==3 && determinism){
+		String error="Szintaxis: storm fieldNev";
+		if(words.length==3 && game.determinism){
 			try{
-				game.blizzardAt(parseInt(words[1]), parseInt(words[2]));
+				game.blizzardAt(words[1], parseInt(words[2]));
 			}catch (NumberFormatException e){
 				System.out.println(error);
 			}
 		}
-		System.out.println(error);
+		else System.out.println(error);
 	}
 
 	private static void finish() {
@@ -210,10 +219,10 @@ public class App {
 		if(words.length==2){
 			switch (words[1]){
 				case "on":
-					determinism=true;
+					game.determinism=true;
 					break;
 				case "off":
-					determinism=false;
+					game.determinism=false;
 					break;
 				default:
 					System.out.println(error);
@@ -230,9 +239,7 @@ public class App {
 	}
 
 	private static Game newGame(Scanner lineScanner) {
-		Game newGame=new Game();
-		newGame.setup(lineScanner);
-		return newGame;
+		return Game.newGame(lineScanner);
 	}
 
 }
