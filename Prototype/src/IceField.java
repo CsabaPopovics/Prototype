@@ -46,6 +46,7 @@ public class IceField extends Field{
                 item=Item.parseItem(new String[]{words[1]}).get(0);
             }
 	        if(words[0].equals("")) return;
+	        if(words[0].equals("hasIgloo")) igloo=true;
         }
         super.parse(scanner);
 

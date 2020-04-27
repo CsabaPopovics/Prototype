@@ -256,6 +256,7 @@ public class Game {
 		String[] words=null;
 		Game game=new Game();
 		List<Field> myCustomFields=new ArrayList<Field>();
+		PolarBear myBear;
 		boolean parse=true;
 		while(scanner.hasNextLine() && parse){
 			words=scanner.nextLine().split(" ");
@@ -317,12 +318,12 @@ public class Game {
 					break;
 				case "Bear":
 					if(words.length==2){
-						for (Field f: game.fields
-							 ) {
-							if(f.name.equals(words[1])){
-								PolarBear pb=new PolarBear();
-								pb.setField(f);
-								f.polarBear=pb;
+						myBear=new PolarBear();
+						for (Field f: myCustomFields){
+							if(words[1].equals(f.name)){
+								myBear.setField(f);
+								f.polarBear=myBear;
+								game.polarBear=myBear;
 							}
 						}
 					}

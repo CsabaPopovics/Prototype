@@ -55,9 +55,9 @@ Bear Field_1_1
 determinism on
 
 End
-Bear right
-Bear right
-Bear right
+bear right
+bear right
+bear right
 saveGame
 
 
