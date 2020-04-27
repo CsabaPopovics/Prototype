@@ -15,6 +15,14 @@ position Field12
 
 Inventory Bob
 
+Character Charlie
+type eskimo
+temperature 3
+workunits 4
+position Field13
+
+Inventory Charlie
+
 Field Field11
 capacity -1
 snow 10
