@@ -14,6 +14,7 @@ public class Field {
 	protected PolarBear polarBear = null;
 	protected String name;
 	protected boolean capacityDiscovered=false;
+	protected Game game;
 	
 	public Field() {}
 	
@@ -157,15 +158,20 @@ public class Field {
 	@Override
 	public String toString() {
 		String res;
-		res="Field "+name+"%n";
-		if(capacityDiscovered()) res+="capacityDiscovered%n";
-		res+="snow "+snowLevel+"%n";
-		if(igloo) res+="hasIgloo%n";
-		if(tent) res+="hasTent%n";
+		res="";
+		if(capacityDiscovered()) res+=String.format("capacityDiscovered%n");
+		res+=String.format("snow ")+snowLevel+String.format("%n");
+		if(igloo) res+=String.format("hasIgloo%n");
+		if(tent) res+=String.format("hasTent%n");
 		return res;
 	}
 
 	private boolean capacityDiscovered() {
-		throw new UnsupportedOperationException("Not Implemented");
+		return capacityDiscovered;
+	}
+
+	//Betöltéshez pawn elhelyezése vizsgálat nélkül
+	public void placePawnFirstTime(Pawn p){
+		characters.add(p);
 	}
 }

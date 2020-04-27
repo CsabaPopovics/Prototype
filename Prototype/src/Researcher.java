@@ -14,13 +14,16 @@ public class Researcher extends Pawn{
         bodyTemp = p.bodyTemp;
         workUnit = p.workUnit;
         finished = p.finished;
+        starterFieldName=p.starterFieldName; //Csak parserhez kell, később nem érdekes
+        starterIsActive=p.starterIsActive; //Csak parserhez kell
+        game=p.game;
     }
 
-    public static Researcher parse(Scanner scanner) {
-	    if(scanner.next().equals("type") && scanner.next().equals("researcher")){
-	        return new Researcher(Pawn.parse(scanner));
+    public static Researcher parse(Scanner scanner, String name) {
+	    {
+	        return new Researcher(Pawn.parse(scanner, name));
         }
-	    else return null;
+
     }
 
     @Override
@@ -35,7 +38,7 @@ public class Researcher extends Pawn{
 
     @Override
     public String toString() {
-        String res="type researcher%n"+super.toString();
+        String res=String.format("type researcher%n")+super.toString();
         return res;
     }
 }

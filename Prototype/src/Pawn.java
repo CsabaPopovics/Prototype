@@ -18,9 +18,9 @@ public class Pawn {
 	
 	public Pawn(String name) {this.name = name;}
 
-	protected static Pawn parse(Scanner scanner) {
+	protected static Pawn parse(Scanner scanner, String name) {
 		String[] words=null;
-		Pawn p=new Pawn();
+		Pawn p=new Pawn(name);
 		boolean parse=true;
 		while(scanner.hasNextLine() && parse){
 			words=scanner.nextLine().split(" ");
@@ -103,7 +103,7 @@ public class Pawn {
 			workUnit--;
 	}
 	
-	public void fire() { Game.checkConditions();}
+	public void fire() { game.checkConditions();}
 	
 	public void assembleGun() {
 		for(Pawn p : field.getCharacters()) {
@@ -235,12 +235,11 @@ public class Pawn {
 
 	@Override
 	public String toString() {
-		String res="name " +name+"%n"+
-					"temperature "+bodyTemp+"%n"+
-					"workunits "+workUnit+"%n"+
-					"position " +field.name+"%n";
+		String res=	"temperature "+bodyTemp+String.format("%n")+
+					"workunits "+workUnit+String.format("%n")+
+					"position " +field.name+String.format("%n");
 		if(isActive()){
-			res+="isactive%n";
+			res+=String.format("isactive%n");
 		}
 		return res;
 
@@ -260,6 +259,7 @@ public class Pawn {
 	}
 
 	private boolean isActive() {
-		throw new UnsupportedOperationException("Not Implemented");
+		Pawn active=game.getActivePawn();
+		return active.equals(this);
 	}
 }

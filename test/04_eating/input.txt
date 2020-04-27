@@ -1,0 +1,20 @@
+Character Alice
+type eskimo
+temperature 3
+workunits 4
+position Field11
+isActive
+
+Inventory Alice
+shovel
+fragileShovel 2
+food
+
+Field Field11
+capacity -1
+
+End
+eat
+
+saveGame
+

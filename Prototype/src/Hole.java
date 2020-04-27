@@ -27,7 +27,7 @@ public class Hole extends Field{
 	@Override
 	public String toString() {
 
-		String res= "capacity 0%n";
+		String res= "Field "+name+String.format("%n")+String.format("capacity 0%n");
 		res+=super.toString();
 		return res;
 	}
