@@ -180,4 +180,12 @@ public abstract class Field {
 	public void placePawnFirstTime(Pawn p){
 		characters.add(p);
 	}
+	
+	public void copyNeighbours(Field f) {
+		for(Direction d : Direction.values()) {
+			Field neighbour = f.getNeighbour(d);
+			if(neighbour != null)
+				setNeighbour(neighbour, d);
+		}
+	}
 }
