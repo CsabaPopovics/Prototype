@@ -485,8 +485,11 @@ public class Game {
 				f.updateSnow(r.nextInt(3)+1);
 			}
 		}
-		System.out.println("Storm affected Field "+f.name);
-		else f.updateSnow(amount);
+
+		else {
+			System.out.println("Storm affected Field "+f.name);
+			f.updateSnow(amount);
+		}
 
 
 	}
