@@ -2,7 +2,11 @@
 public class Hole extends Field{
 	
 	public Hole() {super(); limit = 0;}
-	
+
+	/**
+	 * Név alapján létrehoz egy Hole-t
+	 * @param name Hole kívánt neve
+	 */
 	public Hole(String name) {super(name); limit = 0;}
 
     public Hole(Field f) {

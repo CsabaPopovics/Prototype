@@ -7,6 +7,11 @@ import static java.lang.Integer.parseInt;
 public abstract class Item {
 	protected Pawn owner = null;
 
+    /**
+     * Stringtömb alapján létrehoz egy Item-listát pontosan egy elemmel
+     * @param words egy db item leírása szavanként
+     * @return egy db , a létrehozott itemet tartalmazó lista
+     */
 	public static List<Item> parseItem(String[] words){
 	    List<Item> inv=new ArrayList<Item>();
         if(words.length==1){
@@ -38,7 +43,11 @@ public abstract class Item {
         return inv;
     }
 
-	/// itemlistával tér vissza 1 adott karakterhez
+    /**
+     * Beolvassa szövegből egy karakterhez tartozó Item-listát
+     * @param scanner std inputról olvasó Scanner
+     * @return beolvasott és létrehozott itemeket tartalmazó lista
+     */
     public static List<Item> parseItemList(Scanner scanner) {
         boolean parse=true;
         List<Item> inventory=new ArrayList<Item>();

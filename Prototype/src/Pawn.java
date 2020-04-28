@@ -14,8 +14,14 @@ public class Pawn {
 	private boolean isActive = false;
 
 
-	protected String starterFieldName; //Csak parserhez kell, később nem érdekes
-	protected boolean starterIsActive=false; //Csak parserhez kell
+	/**
+	 * Beolvasáskor melyik mezőn áll a karakter(mező neve szerint)
+	 */
+	protected String starterFieldName;
+	/**
+	 * Beolvasáskor aktív-e a karakter
+	 */
+	protected boolean starterIsActive=false;
 	protected Game game;
 
 	
@@ -23,6 +29,13 @@ public class Pawn {
 	
 	public Pawn(String name) {this.name = name;}
 
+	/**
+	 * Beolvassa egy adott nevű karakter tulajdonságait szövegből
+	 * és ennek megfelően kétrehozza a karaktert
+	 * @param scanner Szöveget beolvasó scanner
+	 * @param name A beolvasott karakter neve
+	 * @return Kétrehozott karakter
+	 */
 	protected static Pawn parse(Scanner scanner, String name) {
 		String[] words;
 		Pawn p=new Pawn(name);
@@ -247,6 +260,10 @@ public class Pawn {
 	public void setAsActive() {isActive = true;}
 
 
+	/**
+	 * Szöveggé alakítja a karakterre jellemző tulajdonságokat
+	 * @return karakter szöveges alakja
+	 */
 	@Override
 	public String toString() {
 		String res=	"temperature "+bodyTemp+String.format("%n")+
@@ -260,6 +277,10 @@ public class Pawn {
 
 	}
 
+	/**
+	 * karakter Itemjeinek listáját szöveggé alakítja
+	 * @return Karakter itemjeinek listájának szöveges alakja
+	 */
 	public String inventoryToString(){
 		String res="";
 		if(inventory!=null){

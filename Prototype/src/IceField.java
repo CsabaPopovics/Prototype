@@ -26,14 +26,21 @@ public class IceField extends Field{
 	}
 
 
-
+	/**
+	 * Meghívja a Field toString() metódusát, és ehhez hozzáadja a tartalmazott itemeket
+	 * @return
+	 */
     protected String toStringHelper(){
         String res= super.toString();
         if(item!=null) res+="item "+item.toString();
         return res;
     }
 
-    @Override
+	/**
+	 * Stringgé alakítja a Field-et, nevével együtt
+	 * @return
+	 */
+	@Override
     public String toString() {
         String res="Field "+name+String.format("%n")+String.format("capacity -1%n");
         res+=toStringHelper();
@@ -41,7 +48,16 @@ public class IceField extends Field{
         return res;
     }
 
-    @Override
+	/**
+	 * Beolvas egy IceField leírást, és beállítja e szerint a Field objektumot
+	 * @param scanner std inputról olvasó scanner a következő leetséges sorokkal:
+	 *                	 [item itemtípusa]
+	 *                   [capacityDiscovered]
+	 *                   [hasIgloo]
+	 *                   [hasTent]
+	 *                   snow mennyiség
+	 */
+	@Override
     public void parse(Scanner scanner) {
 	    if(scanner.hasNextLine()){
 	        String[] words=scanner.nextLine().split(" ");
