@@ -1,6 +1,4 @@
 Storm affected Field Field_1_1
-Character Alice died
-Game ended
 Storm affected Field Field_1_2
 Storm affected Field Field_1_3
 Character Alice
@@ -32,15 +30,18 @@ Field Field_1_1
 capacity -1
 snow 10
 item ammo
+
 Field Field_1_2
 capacity -1
 snow 9
 hasIgloo
 item ammo
+
 Field Field_1_3
 capacity -1
 snow 9
 hasTent
 item ammo
+
 determinism on
 End

@@ -1,6 +1,6 @@
 Bob steps Right
 Character Bob fallen into water
-Character 0 was rescued
+Bob was rescued
 Charlie steps Right
 Character Charlie fallen into water
 Character Alice
@@ -37,6 +37,7 @@ food
 Field Field_1_1
 capacity -1
 snow 0
+
 
 Field Field_1_2
 capacity 0

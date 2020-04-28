@@ -37,6 +37,7 @@ public class IceField extends Field{
     public String toString() {
         String res="Field "+name+String.format("%n")+String.format("capacity -1%n");
         res+=toStringHelper();
+        res+=String.format("%n");
         return res;
     }
 

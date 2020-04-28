@@ -8,16 +8,20 @@ public class App {
 	private static boolean exit=false;
 
 	public static void main(String[] args) {
-		try {
-			processInput();
-		}catch (Exception e){
-			System.err.println(e.toString());
-			e.printStackTrace();
+		boolean exit=false;
+		while(!exit){
+			try {
+				exit=processInput();
+			}catch (Exception e){
+				System.err.println(e.toString());
+				e.printStackTrace();
+			}
 		}
+
 
 	}
 
-	public static void processInput() {
+	public static boolean processInput() {
 		lineScanner=new Scanner(System.in);
 		String line;
 		String[] words;
@@ -91,6 +95,7 @@ public class App {
 			}
 
 		}
+		return true;
 	}
 
 	private static Game loadGame() {
@@ -107,23 +112,26 @@ public class App {
 		String error="Szintaxis: bear {up|down|right|left}";
 		if(words.length==2 && game.determinism){
 			PolarBear bear=game.getPolarBear();
-			switch (words[1]){
-				case "up":
-					bear.step(Direction.Up);
-					break;
-				case "down":
-					bear.step(Direction.Down);
-					break;
-				case "right":
-					bear.step(Direction.Right);
-					break;
-				case "left":
-					bear.step(Direction.Left);
-					break;
-				default:
-					System.out.println(error);
-					break;
+			if(bear !=null){
+				switch (words[1]){
+					case "up":
+						bear.step(Direction.Up);
+						break;
+					case "down":
+						bear.step(Direction.Down);
+						break;
+					case "right":
+						bear.step(Direction.Right);
+						break;
+					case "left":
+						bear.step(Direction.Left);
+						break;
+					default:
+						System.out.println(error);
+						break;
+				}
 			}
+
 		}
 		else System.out.println(error);
 	}

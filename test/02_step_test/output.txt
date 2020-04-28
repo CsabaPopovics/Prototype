@@ -46,10 +46,12 @@ Field Field_1_1
 capacity -1
 snow 8
 item ammo
+
 Field Field_1_2
 capacity -1
 snow 8
 item ammo
+
 Field Field_2_1
 capacity 0
 snow 0

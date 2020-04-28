@@ -79,13 +79,13 @@ public class Game {
 
 			}
 		}
-		for(int j=9;j<0;--j){
+		for(int j=9;j>0;--j){
 			if(fieldArray[9][j]!=null){
 				fieldArray[9][j].setNeighbour(fieldArray[9][j-1], Direction.Left);
 			}
 		}
 
-		for(int i=9;i<0;--i){
+		for(int i=9;i>0;--i){
 			if(fieldArray[i][9]!=null){
 				fieldArray[i][9].setNeighbour(fieldArray[i-1][9], Direction.Up);
 			}
@@ -253,7 +253,7 @@ public class Game {
 
 	public Field getField(String name) {
 		for(Field f : fields) {
-			if(f.getName() == name)
+			if(f.getName().equals( name))
 				return f;
 		}
 		return null;
@@ -404,9 +404,12 @@ public class Game {
 	//a listában levő itemeket hozzáadja az adott indexű karakterhez
 	private void addItemsToCharacter(List<Item> parseItemList, String characterName) {
 		Pawn character=getCharacterByName(characterName);
-		for(Item i:parseItemList){
-			character.addToInventory(i);
+		if(character!=null){
+			for(Item i:parseItemList){
+				character.addToInventory(i);
+			}
 		}
+
 	}
 
 	private Pawn getCharacterByName(String characterName) {
@@ -459,14 +462,14 @@ public class Game {
 	private void nextTurn() {
 		for(Field f:fields){
 			f.resetTent();
-			blizzardAt(f, 1);
+			blizzardAt(f, 0);
 
 		}
 		polarBearRandom();
 	}
 
 	private void polarBearRandom() {
-		if(!determinism){
+		if(!determinism && polarBear!=null){
 			Random random=new Random();
 			switch (random.nextInt(4)){
 				case 0: polarBear.step(Direction.Right);break;
@@ -486,10 +489,14 @@ public class Game {
 			}
 		}
 
-		else {
-			System.out.println("Storm affected Field "+f.name);
-			f.updateSnow(amount);
-		}
+		/*else {
+
+			{
+				System.out.println("Storm affected Field "+f.name);
+				f.updateSnow(amount);
+			}
+
+		}*/
 
 
 	}

@@ -24,7 +24,7 @@ public class Pawn {
 	public Pawn(String name) {this.name = name;}
 
 	protected static Pawn parse(Scanner scanner, String name) {
-		String[] words=null;
+		String[] words;
 		Pawn p=new Pawn(name);
 		boolean parse=true;
 		while(scanner.hasNextLine() && parse){
@@ -66,9 +66,11 @@ public class Pawn {
 
 	public void updateBodyTemp(int i) {
 		bodyTemp += i;
-		if(bodyTemp == 0)
+		if(bodyTemp == 0){
 			System.out.println(name+" froze to death");
 			die();
+		}
+
 		
 	}
 
@@ -141,7 +143,7 @@ public class Pawn {
 	public boolean rescue(Pawn p) {
 		for(Item i : inventory) {
 			if(throwRope(i, p)) {
-				System.out.println("Character "+game.getCharacterNumber(this)+" was rescued");
+
 				return true;
 
 			}
@@ -188,9 +190,11 @@ public class Pawn {
 			if(putOn(i))
 				return;
 		}
-		if(!cryForHelp())
+		if(!cryForHelp()){
 			System.out.println(name + " drowned");
 			die();
+		}
+
 
 	}
 	

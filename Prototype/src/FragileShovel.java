@@ -10,9 +10,10 @@ public class FragileShovel extends Shovel{
 
 	@Override
 	public boolean use(String cmd) {
-		if(cmd == "Clear") {
+		if(cmd.equals("Clear")) {
 			if(owner.getField().updateSnow(-2)) {
 				usageCount++;
+				(owner.workUnit)--;
 				if(usageCount == 3)
 					owner.removeFromInventory(this);
 				return true;
