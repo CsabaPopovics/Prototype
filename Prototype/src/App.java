@@ -8,7 +8,13 @@ public class App {
 	private static boolean exit=false;
 
 	public static void main(String[] args) {
-		processInput();
+		try {
+			processInput();
+		}catch (Exception e){
+			System.err.println(e.toString());
+			e.printStackTrace();
+		}
+
 	}
 
 	public static void processInput() {
