@@ -82,6 +82,7 @@ public abstract class Field {
 			polarBear.setField(this);
 			if(!characters.isEmpty() && !igloo) {
 				for(Pawn p : characters) {
+					System.out.println(p.name+" was caught by Bear");
 					p.die();
 				}
 			}

@@ -67,7 +67,7 @@ public class Pawn {
 	public void updateBodyTemp(int i) {
 		bodyTemp += i;
 		if(bodyTemp == 0)
-			System.out.println(name+" has frozen");
+			System.out.println(name+" froze to death");
 			die();
 		
 	}
@@ -158,6 +158,7 @@ public class Pawn {
 				if(mySaviors != null) {
 					for(Pawn savior : mySaviors) {
 						if(savior.rescue(this)) {
+							System.out.println(name+" was rescued");
 							return true;
 						}
 					}
@@ -188,6 +189,7 @@ public class Pawn {
 				return;
 		}
 		if(!cryForHelp())
+			System.out.println(name + " drowned");
 			die();
 
 	}

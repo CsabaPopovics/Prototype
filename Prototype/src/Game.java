@@ -109,7 +109,7 @@ public class Game {
 		Flare flare = new Flare();
 		placeItem(flare);
 		Random random = new Random();
-		int itemCount = new Random().nextInt(50);
+		int itemCount = new Random().nextInt(20);
 		double itemType;
 		
 		while(itemCount>0) {
@@ -219,10 +219,12 @@ public class Game {
 
 			if(f.name.equals(fieldName)){
 				if(determinism){
+					System.out.println("Storm affected Field "+f.name);
 					f.updateSnow(amount);
 				}
 				else{
 					Random r=new Random();
+					System.out.println("Storm affected Field "+f.name);
 					f.updateSnow(r.nextInt(4)+1);
 				}
 			}
@@ -465,9 +467,11 @@ public class Game {
 		if(!determinism){
 			Random r=new Random();
 			if(r.nextInt(10)==0){
+				System.out.println("Storm affected Field "+f.name);
 				f.updateSnow(r.nextInt(3)+1);
 			}
 		}
+		System.out.println("Storm affected Field "+f.name);
 		else f.updateSnow(amount);
 
 
