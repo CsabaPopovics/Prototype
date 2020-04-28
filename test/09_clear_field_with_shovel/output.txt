@@ -14,5 +14,6 @@ Field Field_1_1
 capacity -1
 snow 6
 item ammo
+
 determinism off
 End

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -78,27 +79,20 @@ public class Game {
 
 			}
 		}
-		for(int j=9;j<0;--j){
+		for(int j=9;j>0;--j){
 			if(fieldArray[9][j]!=null){
 				fieldArray[9][j].setNeighbour(fieldArray[9][j-1], Direction.Left);
 			}
 		}
 
-		for(int i=9;i<0;--i){
+		for(int i=9;i>0;--i){
 			if(fieldArray[i][9]!=null){
 				fieldArray[i][9].setNeighbour(fieldArray[i-1][9], Direction.Up);
 			}
 		}
 	}
 	
-	public void insertField(Field f, int i, int j) {
-		if(i >= 0 && i < 10 && j >= 0 && j < 10) {
-			f.copyNeighbours(fieldArray[i][j]);
-			fields.remove(fieldArray[i][j]);
-			fields.add(f);
-			
-		}
-	}
+
 	
 	public void generateItems() {
 		Ammo ammo = new Ammo();
@@ -108,7 +102,7 @@ public class Game {
 		Flare flare = new Flare();
 		placeItem(flare);
 		Random random = new Random();
-		int itemCount = new Random().nextInt(30);
+		int itemCount = new Random().nextInt(50);
 		double itemType;
 		
 		while(itemCount>0) {
@@ -138,7 +132,7 @@ public class Game {
 		}
 		return null;
 	}
-	
+
 	public void placeItem(Item item) {
 		/*boolean placementSuccess = false;
 		while(!placementSuccess) {
@@ -153,7 +147,7 @@ public class Game {
 			return;
 		}
 		return;
-		
+
 	}
 
 	public static void partFound() {
@@ -161,6 +155,9 @@ public class Game {
 
 	}
 
+	/**
+	 * Kiírjha, ha befejeződött a játék, akár nyeréssel, akár halállal végződött
+	 */
 	public static void end() { end = true;
 		System.out.println("Game ended");
 	}
@@ -176,12 +173,24 @@ public class Game {
 			
 	}
 
+	/**
+	 * Új játékot indíthatunk vele
+	 * @param lineScanner std inputot olvasó Scanner
+	 * @return a létrehozott Game
+	 */
 	public static Game newGame(Scanner lineScanner) {
 		Game game=new Game();
 		game.setup(lineScanner);
 		return game;
 	}
 
+	/**
+	 * Kiírja, hogy adjunk hozzá min 3 játékost
+	 * addEskimo, addResearcher, finishSetup, exit parancsokra vár
+	 * Ha finishSetup-kor még nincs 3 játékos, újra jelzi ezt a követelméynt
+	 * exit parancsra fisszatér a főkonzolra, megszakítva  a beállítást
+	 * @param lineScanner std inputot olvasó Scanner
+	 */
 	public void setup(Scanner lineScanner){
 		boolean read=true;
 		boolean exit=false;
@@ -226,16 +235,23 @@ public class Game {
 		return activeCharacter;
 	}
 
-	//Adott mezőn a hóvihar, amount a tesztek miatt kell
+	/**
+	 * Adott nevű mezőn adott mennyiségű havat lerakó hóvihart generál, ha a játék determinisztikus módban van
+	 * Ha nem determinisztikus, az adott mezőre véletlen egész mennyiségű havat rak (1,4) intervallumon
+	 * @param fieldName célmező neve
+	 * @param amount kívánt hozzáadandó hómennyiség
+	 */
 	public void blizzardAt(String fieldName, int amount) {
 		for (Field f: fields) {
 
 			if(f.name.equals(fieldName)){
 				if(determinism){
+					System.out.println("Storm affected Field "+f.name);
 					f.updateSnow(amount);
 				}
 				else{
 					Random r=new Random();
+					System.out.println("Storm affected Field "+f.name);
 					f.updateSnow(r.nextInt(4)+1);
 				}
 			}
@@ -248,14 +264,23 @@ public class Game {
 	
 	public int getCharacterCount() {return characters.size();}
 
+	/**
+	 * Név alapját kikeres egy Fieldet
+	 * @param name kieresendő Field neve
+	 * @return A talált Field vagy null, ha nincs ilyen
+	 */
 	public Field getField(String name) {
 		for(Field f : fields) {
-			if(f.getName() == name)
+			if(f.getName().equals( name))
 				return f;
 		}
 		return null;
 	}
 
+	/**
+	 * Game objektumot stringgé alakítja a dokumentált nyelvtan szerint
+	 * @return Game string formátumban
+	 */
 	@Override
 	public String toString(){
 		String res="";
@@ -285,6 +310,12 @@ public class Game {
 
 	}
 
+	/**
+	 * Létrehoz egy Game objektumot a beolvasott szöveges input és  adokumentált nyelvtan alapján
+	 * @param scanner std inputot olvasó Scanner
+	 * @return Létrehozott Game objektum
+	 * @throws Exception ha nincs megadott Field, akkor kivételt dob
+	 */
 	public static Game parse(Scanner scanner) throws Exception {
 		String[] words=null;
 		Game game=new Game();
@@ -381,6 +412,12 @@ public class Game {
 
 	}
 
+	/**
+	 * Kézzel létrehozott fieldek listája és ezek nevei alapján
+	 * beállítja a szomszédságokat és felölti a Game fields listáját velük
+	 * @param myCustomFields Parse alapján létrehozott fieldek listája Field_i_j nevű fildekkel,
+	 *                       ahol i és j egészek elemei (0,10( intervallumnak
+	 */
 	private void setupCustomFields(List<Field> myCustomFields) {
 		Field[][] myFieldArray=new Field[10][10];
 		for(Field f: myCustomFields){
@@ -398,14 +435,26 @@ public class Game {
 		setNeighbours();
 	}
 
-	//a listában levő itemeket hozzáadja az adott indexű karakterhez
+	/**
+	 * Adott nevű karakterhez hozzáadja a listában levő itemeket
+	 * @param parseItemList Itemeket tartalmaző lista, ezeket szeretnénk hozzáadni
+	 * @param characterName A célkarakter neve
+	 */
 	private void addItemsToCharacter(List<Item> parseItemList, String characterName) {
 		Pawn character=getCharacterByName(characterName);
-		for(Item i:parseItemList){
-			character.addToInventory(i);
+		if(character!=null){
+			for(Item i:parseItemList){
+				character.addToInventory(i);
+			}
 		}
+
 	}
 
+	/**
+	 * Megkeresi a játékosok közül az adott nevű karaktert
+	 * @param characterName A keresett karakter neve
+	 * @return A talált karakter vagy null
+	 */
 	private Pawn getCharacterByName(String characterName) {
 		for(Pawn p: characters){
 			if(p.name.equals(characterName))
@@ -414,8 +463,9 @@ public class Game {
 		return null;
 	}
 
-	///Betöltéshez kell
-	// végigmegy a karaktereken, és amelyik aktív, azt beállítja a Gameben aktívnak;
+	/**
+	 * A karakterek listáján végigmenve beállítja az első aktívnak jelöltet a Game-ben aktívnak
+	 */
 	private void setActivePawn() {
 		for(Pawn p:characters){
 			if(p.starterIsActive){
@@ -425,8 +475,9 @@ public class Game {
 		}
 	}
 
-	//konzolról való betöltéshez kell
-	//minden field, minden pawn: ha pawn.starterFieldName == field.name rárakja fieldre, pawn fieldjét is beálítja
+	/**
+	 * Rárakja a karaktereket a bennük megnevezett kezdő Field-re
+	 */
 	private void placePawnsToFieldsFirstTime() {
 		for(Field f:fields){
 			for(Pawn p:characters){
@@ -437,11 +488,12 @@ public class Game {
 		}
 	}
 
-	public int getCharacterNumber(Pawn pawn) {
-		return characters.indexOf(pawn);
-	}
 
-	//pawn aki lemondott róla (finishelt)
+	/**
+	 * Beállítja a következő aktiv karaktert, ha valaki lemondott a cselekvésről
+	 * Ha az utolsó karakter mondott le a listában, meghívja a fordulókezelő metódust
+	 * @param pawn A karakter, aki lemondott a cselekvés jogáról
+	 */
 	public void setActiveCharacter(Pawn pawn) {
 		int newindex=characters.indexOf(pawn)+1;
 		newindex=newindex%characters.size();
@@ -453,17 +505,25 @@ public class Game {
 
 	}
 
+	/**
+	 * Új kör kezelő: Eltakarítja a sátrakat, hóvihart generál és
+	 * lépteti a jegesmedvét (ha nem determinisztikus a játék)
+	 */
 	private void nextTurn() {
 		for(Field f:fields){
 			f.resetTent();
-			blizzardAt(f, 1);
+			blizzardAt(f, 0);
 
 		}
 		polarBearRandom();
 	}
 
+	/**
+	 * Véletlenszerűen lépteti  a medvét valamelyik irányba,
+	 * ha a játék nem determinisztikus
+	 */
 	private void polarBearRandom() {
-		if(!determinism){
+		if(!determinism && polarBear!=null){
 			Random random=new Random();
 			switch (random.nextInt(4)){
 				case 0: polarBear.step(Direction.Right);break;
@@ -474,14 +534,29 @@ public class Game {
 		}
 	}
 
+	/**
+	 * 10% valószínűséggel vihart generál (1,3) mennyiségű hóval adott mezőn
+	 * Ha nincs determinizmus
+	 * @param f Ahol vihart szeretnénk
+	 * @param amount nem használjuk
+	 */
 	private void blizzardAt(Field f, int amount) {
 		if(!determinism){
 			Random r=new Random();
 			if(r.nextInt(10)==0){
+				System.out.println("Storm affected Field "+f.name);
 				f.updateSnow(r.nextInt(3)+1);
 			}
 		}
-		else f.updateSnow(amount);
+
+		/*else {
+
+			{
+				System.out.println("Storm affected Field "+f.name);
+				f.updateSnow(amount);
+			}
+
+		}*/
 
 
 	}

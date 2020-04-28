@@ -3,8 +3,12 @@ public class Shovel extends Item {
 
 	@Override
 	public boolean use(String cmd) {
-		if(cmd == "Clear")
-			return owner.getField().updateSnow(-2);
+		if(cmd.equals("Clear")){
+			boolean success=owner.getField().updateSnow(-2);
+			if(success) (owner.workUnit)--;
+			return success;
+		}
+
 		return false;
 	}
 

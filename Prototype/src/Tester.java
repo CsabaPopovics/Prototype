@@ -11,9 +11,15 @@ public class Tester {
     public Tester(){
         String currentDirectory = System.getProperty("user.dir");
         testFolder= new File(currentDirectory, "test");
-        testCaseFolders=testFolder.listFiles();
-        cases=new ArrayList<File>(Arrays.asList(testCaseFolders));
-        Collections.sort(cases);
+        if(testFolder.exists()){
+            testCaseFolders=testFolder.listFiles();
+            cases=new ArrayList<File>(Arrays.asList(testCaseFolders));
+            Collections.sort(cases);
+        }
+        else{
+            System.err.println("A test mappát rakd a program working directoryjába");
+        }
+
     }
 
     public void runAll(){
@@ -82,6 +88,7 @@ public class Tester {
         } catch (FileNotFoundException e) {
             System.setIn(stdin);
             System.setOut(stdout);
+            System.err.println("nincs input.txt");
             e.printStackTrace();
         }
 

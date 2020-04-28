@@ -18,6 +18,8 @@ capacity -1
 Field Field_2_1
 capacity 1
 
+determinism on
+
 End
 step down
 finish

@@ -13,6 +13,7 @@ Field Field_1_1
 capacity -1
 snow 0
 
+
 determinism off
 End
 Character Alice
@@ -29,6 +30,7 @@ fragileShovel 2
 Field Field_1_1
 capacity -1
 snow 0
+
 
 determinism off
 End

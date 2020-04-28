@@ -1,9 +1,13 @@
+Alice was caught by Bear
 Character Alice died
 Game ended
+Bob was caught by Bear
 Character Bob died
 Game ended
+Charlie was caught by Bear
 Character Charlie died
 Game ended
+Daniel was caught by Bear
 Character Daniel died
 Game ended
 Character Alice
@@ -59,19 +63,23 @@ Field Field_1_1
 capacity -1
 snow 0
 
+
 Field Field_1_2
 capacity -1
 snow 0
+
 
 Field Field_1_3
 capacity -1
 snow 0
 hasTent
 
+
 Field Field_1_4
 capacity -1
 snow 0
 hasIgloo
+
 
 Bear Field_1_4
 

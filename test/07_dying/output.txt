@@ -1,7 +1,9 @@
 Character Bob fallen into water
+Bob drowned
 Character Bob died
 Game ended
-Alice has frozen
+Storm affected Field Field_1_1
+Alice froze to death
 Character Alice died
 Game ended
 Character Alice
@@ -24,6 +26,7 @@ Inventory Bob
 Field Field_1_1
 capacity -1
 snow 10
+
 
 Field Field_1_2
 capacity 0
