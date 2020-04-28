@@ -1,0 +1,33 @@
+Character Bob fallen into water
+Character Bob died
+Game ended
+Alice has frozen
+Character Alice died
+Game ended
+Character Alice
+type eskimo
+temperature 0
+workunits 4
+position Field_1_1
+isactive
+
+Inventory Alice
+
+Character Bob
+type eskimo
+temperature 1
+workunits 4
+position Field_1_2
+
+Inventory Bob
+
+Field Field_1_1
+capacity -1
+snow 10
+
+Field Field_1_2
+capacity 0
+snow 0
+
+determinism on
+End

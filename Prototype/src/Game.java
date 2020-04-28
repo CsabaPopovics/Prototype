@@ -109,7 +109,7 @@ public class Game {
 		Flare flare = new Flare();
 		placeItem(flare);
 		Random random = new Random();
-		int itemCount = new Random().nextInt(20);
+		int itemCount = new Random().nextInt(50);
 		double itemType;
 		
 		while(itemCount>0) {
@@ -132,15 +132,29 @@ public class Game {
 		
 	}
 	
+	public Field getEmptyField() {
+		for(Field f : fields) {
+			if(f.getItem() == null && f.getLimit() != 0)
+				return f;
+		}
+		return null;
+	}
+
 	public void placeItem(Item item) {
-		boolean placementSuccess = false;
+		/*boolean placementSuccess = false;
 		while(!placementSuccess) {
 			int i = new Random().nextInt(10);
 			int j = new Random().nextInt(10);
 			if(fieldArray[i][j].setItem(item))
 				placementSuccess = true;
+		}*/
+		Field myField = getEmptyField();
+		if(myField != null) {
+			myField.setItem(item);
+			return;
 		}
-		
+		return;
+
 	}
 
 	public static void partFound() {

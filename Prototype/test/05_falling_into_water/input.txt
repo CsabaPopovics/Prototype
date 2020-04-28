@@ -1,0 +1,44 @@
+loadGame
+Character Alice
+type eskimo
+temperature 5
+workunits 4
+position Field_1_1
+
+Inventory Alice
+shovel
+rope
+food
+
+Character Bob
+type eskimo
+temperature 5
+workunits 4
+position Field_1_1
+isactive
+
+Inventory Bob
+
+Character Charlie
+type eskimo
+temperature 5
+workunits 4
+position Field_1_1
+
+Inventory Charlie
+scubasuit
+fragileShovel 2
+food
+
+Field Field_1_1
+capacity -1
+
+Field Field_1_2
+capacity 0
+
+End
+step right
+finish
+step right
+saveGame
+

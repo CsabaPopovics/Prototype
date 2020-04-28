@@ -1,0 +1,26 @@
+loadGame
+Character Alice
+type eskimo
+temperature 1
+workunits 4
+position Field_1_1
+isactive
+
+Character Bob
+type eskimo
+temperature 1
+workunits 4
+position Field_1_2
+isactive
+
+Field Field_1_1
+capacity -1
+
+Field Field_1_2
+capacity 0
+
+determinism on
+
+End
+storm Field_1_1 10
+saveGame
