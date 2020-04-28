@@ -1,0 +1,46 @@
+loadGame
+Character Alice
+type eskimo
+temperature 3
+workunits 4
+position Field_1_1
+isactive
+
+Character Bob
+type eskimo
+temperature 3
+workunits 4
+position Field_1_2
+
+Character Charlie
+type eskimo
+temperature 3
+workunits 4
+position Field_1_3
+
+Field Field_1_1
+capacity -1
+item ammo
+snow 8
+
+Field Field_1_2
+capacity -1
+item ammo
+snow 8
+hasIgloo
+
+Field Field_1_3
+capacity -1
+item ammo
+snow 8
+hasTent
+
+determinism on
+
+End
+
+storm Field_1_1 2
+storm Field_1_2 1
+storm Field_1_3 1
+saveGame
+

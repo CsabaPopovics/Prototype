@@ -1,0 +1,58 @@
+Bob steps Right
+Charlie steps Down
+Dean steps Left
+Character Dean fallen into water
+Character Alice
+type eskimo
+temperature 3
+workunits 4
+position Field_1_1
+
+Inventory Alice
+
+Character Bob
+type eskimo
+temperature 3
+workunits 3
+position Field_1_2
+
+Inventory Bob
+
+Character Charlie
+type eskimo
+temperature 3
+workunits 3
+position Field_2_1
+
+Inventory Charlie
+
+Character Dean
+type eskimo
+temperature 3
+workunits 3
+position Field_1_0
+isactive
+
+Inventory Dean
+scubasuit
+fragileShovel 2
+food
+
+Field Field_1_0
+capacity 0
+snow 8
+
+Field Field_1_1
+capacity -1
+snow 8
+item ammo
+Field Field_1_2
+capacity -1
+snow 8
+item ammo
+Field Field_2_1
+capacity 0
+snow 0
+
+determinism on
+End
