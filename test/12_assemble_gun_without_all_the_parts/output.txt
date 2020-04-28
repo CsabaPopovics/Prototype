@@ -1,13 +1,16 @@
-loadGame
+Bob adds Ammo to the Flaregun.
+Cecil adds Flare to the Flaregun.
+Flaregun Assembly Failed
 Character Alice
 type eskimo
 temperature 5
-workunits 4
+workunits 3
 position Field_1_1
+isactive
 
 Inventory Alice
 shovel
-rope
+fragileShovel 3
 food
 
 Character Bob
@@ -15,30 +18,26 @@ type eskimo
 temperature 5
 workunits 4
 position Field_1_1
-isactive
 
 Inventory Bob
+ammo
+fragileShovel 3
+food
 
-Character Charlie
+Character Cecil
 type eskimo
 temperature 5
 workunits 4
 position Field_1_1
 
-Inventory Charlie
-scubasuit
-fragileShovel 2
+Inventory Cecil
+flare
+fragileShovel 3
 food
 
 Field Field_1_1
 capacity -1
+snow 8
 
-Field Field_1_2
-capacity 0
-
+determinism off
 End
-step right
-finish
-step right
-saveGame
-

@@ -22,7 +22,7 @@ public class Game {
 	public void convert2DArrayToArrayList() {
 		for(int i = 0; i < 10; i++) {
 			for(int j = 0; j < 10; j++)
-				fields.add(fieldArray[i][j]);
+				if((fieldArray[i][j])!=null)fields.add(fieldArray[i][j]);
 		}
 	}
 	
@@ -50,17 +50,44 @@ public class Game {
 	}
 	
 	public void setNeighbours() {
-		for(int i = 0; i < 10; i++) {
-			for(int j = 0; j < 10; j++) {
-				fieldArray[i][j].setNeighbour(fieldArray[i][j+1], Direction.Right);
-				fieldArray[i][j].setNeighbour(fieldArray[i+1][j], Direction.Up);
+		for(int i = 0; i < 9; i++) {
+			for(int j = 0; j < 9; j++) {
+				if(fieldArray[i][j]!=null){
+					fieldArray[i][j].setNeighbour(fieldArray[i][j+1], Direction.Right);
+					fieldArray[i][j].setNeighbour(fieldArray[i+1][j], Direction.Down);
+				}
+
+			}
+		}
+		for(int j=0;j<9;++j){
+			if(fieldArray[9][j]!=null){
+				fieldArray[9][j].setNeighbour(fieldArray[9][j+1], Direction.Right);
+			}
+		}
+		for(int i=0;i<9;++i){
+			if(fieldArray[i][9]!=null){
+				fieldArray[i][9].setNeighbour(fieldArray[i+1][9], Direction.Down);
 			}
 		}
 		
-		for(int i = 10; i > 0; i--) {
-			for(int j = 10; j > 0; j--) {
-				fieldArray[i][j].setNeighbour(fieldArray[i][j-1], Direction.Left);
-				fieldArray[i][j].setNeighbour(fieldArray[i-1][j], Direction.Down);
+		for(int i = 9; i > 0; i--) {
+			for(int j = 9; j > 0; j--) {
+				if(fieldArray[i][j]!=null){
+					fieldArray[i][j].setNeighbour(fieldArray[i][j-1], Direction.Left);
+					fieldArray[i][j].setNeighbour(fieldArray[i-1][j], Direction.Up);
+				}
+
+			}
+		}
+		for(int j=9;j<0;--j){
+			if(fieldArray[9][j]!=null){
+				fieldArray[9][j].setNeighbour(fieldArray[9][j-1], Direction.Left);
+			}
+		}
+
+		for(int i=9;i<0;--i){
+			if(fieldArray[i][9]!=null){
+				fieldArray[i][9].setNeighbour(fieldArray[i-1][9], Direction.Up);
 			}
 		}
 	}
@@ -99,6 +126,7 @@ public class Game {
 				placeItem(new Shovel());
 			} else
 				placeItem(new Tent());
+			--itemCount;
 			
 		}
 		
@@ -115,7 +143,10 @@ public class Game {
 		
 	}
 
-	public static void partFound() {progress++;}
+	public static void partFound() {
+		progress++;
+
+	}
 
 	public static void end() { end = true;
 		System.out.println("Game ended");
@@ -124,8 +155,11 @@ public class Game {
 	public void checkConditions() {
 		if(progress == 3 && characters.get(0).getField().getCharacters().size() == characters.size()) {
 			win = true;
+			System.out.println("Flaregun Successfully Used");
+			end();
 		} else
 			progress = 0;
+			if(!win)System.out.println("Flaregun Assembly Failed");
 			
 	}
 
@@ -137,19 +171,32 @@ public class Game {
 
 	public void setup(Scanner lineScanner){
 		boolean read=true;
-
+		boolean exit=false;
+		System.out.println("adj hozzá legalább 3 játékost");
 		while(lineScanner.hasNextLine() && read){
-			if(characters.size()<3) System.out.println("adj hozzá legalább 3 játékost");
+
 			String[] words=lineScanner.nextLine().split(" ");
 			if(words.length==2){
 				if(words[0].equals("addEskimo")) characters.add(new Eskimo(words[1]));
 				if(words[0].equals("addResearcher")) characters.add(new Eskimo(words[1]));
 			}
-			if(words[0].equals("finishSetup")) read=false;
+			if(words[0].equals("finishSetup")) {
+				if(characters.size()>=3){
+					read=false;
+				}
+				else{
+					System.out.println("adj hozzá legalább 3 játékost");
+				}
+
+			}
+			if(words[0].equals("exit")) {
+				read=false;
+				exit=true;
+			}
 
 		}
 
-		init();
+		if(!exit)init();
 	}
 
 	//fieldek generálása, karakterek elhelyezése
@@ -168,8 +215,8 @@ public class Game {
 
 	//Adott mezőn a hóvihar, amount a tesztek miatt kell
 	public void blizzardAt(String fieldName, int amount) {
-		for (Field f: fields
-			 ) {
+		for (Field f: fields) {
+
 			if(f.name.equals(fieldName)){
 				if(determinism){
 					f.updateSnow(amount);
@@ -209,7 +256,7 @@ public class Game {
 		if(fields!=null){
 			for (Field f:fields
 			) {
-				res+=f.toString()+String.format("%n%n");
+				res+=f.toString()+String.format("%n");
 			}
 		}
 		if(polarBear!=null){
@@ -225,9 +272,11 @@ public class Game {
 
 	}
 
-	public static Game parse(Scanner scanner){
+	public static Game parse(Scanner scanner) throws Exception {
 		String[] words=null;
 		Game game=new Game();
+		List<Field> myCustomFields=new ArrayList<Field>();
+		PolarBear myBear;
 		boolean parse=true;
 		while(scanner.hasNextLine() && parse){
 			words=scanner.nextLine().split(" ");
@@ -268,18 +317,20 @@ public class Game {
 									if (words[1].equals("0")) {
 										f = new Hole(fieldName);
 										f.parse(scanner);
-										game.fields.add(f);
+										myCustomFields.add(f);
 										break;
 									}
 									if (words[1].equals("-1")) {
 										f = new IceField(fieldName);
 										f.parse(scanner);
-										game.fields.add(f);
+										myCustomFields.add(f);
 										break;
 									}
 
 								}
-								f=new UnstableIceField(fieldName, parseInt(words[1])); break;
+								f=new UnstableIceField(fieldName, parseInt(words[1]));
+								myCustomFields.add(f);
+								break;
 							}
 						}
 						//if(f!=null) f.parse(scanner);
@@ -287,12 +338,12 @@ public class Game {
 					break;
 				case "Bear":
 					if(words.length==2){
-						for (Field f: game.fields
-							 ) {
-							if(f.name.equals(words[1])){
-								PolarBear pb=new PolarBear();
-								pb.setField(f);
-								f.polarBear=pb;
+						myBear=new PolarBear();
+						for (Field f: myCustomFields){
+							if(words[1].equals(f.name)){
+								myBear.setField(f);
+								f.polarBear=myBear;
+								game.polarBear=myBear;
 							}
 						}
 					}
@@ -309,15 +360,45 @@ public class Game {
 			}
 
 		}
+		if(myCustomFields.size()==0) throw new Exception("Nincs egy field se");
+		game.setupCustomFields(myCustomFields);
 		game.placePawnsToFieldsFirstTime();
 		game.setActivePawn();
 		return game;
 
 	}
 
+	private void setupCustomFields(List<Field> myCustomFields) {
+		Field[][] myFieldArray=new Field[10][10];
+		for(Field f: myCustomFields){
+			String[] words=f.name.split("_");
+			if(words.length==3){
+				int i=parseInt(words[1]);
+				int j=parseInt(words[2]);
+				if(0<=i && i<10 && 0<=j && j<10){
+					myFieldArray[i][j]=f;
+				}
+			}
+		}
+		fieldArray=myFieldArray;
+		convert2DArrayToArrayList();
+		setNeighbours();
+	}
+
 	//a listában levő itemeket hozzáadja az adott indexű karakterhez
 	private void addItemsToCharacter(List<Item> parseItemList, String characterName) {
-		throw new UnsupportedOperationException("Not Implemented");
+		Pawn character=getCharacterByName(characterName);
+		for(Item i:parseItemList){
+			character.addToInventory(i);
+		}
+	}
+
+	private Pawn getCharacterByName(String characterName) {
+		for(Pawn p: characters){
+			if(p.name.equals(characterName))
+				return p;
+		}
+		return null;
 	}
 
 	///Betöltéshez kell
@@ -337,8 +418,7 @@ public class Game {
 		for(Field f:fields){
 			for(Pawn p:characters){
 				if(f.name.equals(p.starterFieldName)){
-					f.placePawnFirstTime(p);
-					p.field=f;
+					f.accept(p);
 				}
 			}
 		}
@@ -346,5 +426,50 @@ public class Game {
 
 	public int getCharacterNumber(Pawn pawn) {
 		return characters.indexOf(pawn);
+	}
+
+	//pawn aki lemondott róla (finishelt)
+	public void setActiveCharacter(Pawn pawn) {
+		int newindex=characters.indexOf(pawn)+1;
+		newindex=newindex%characters.size();
+		activeCharacter=characters.get(newindex);
+		activeCharacter.finished=false;
+		activeCharacter.setAsActive();
+		if(newindex==0) nextTurn();
+
+
+	}
+
+	private void nextTurn() {
+		for(Field f:fields){
+			f.resetTent();
+			blizzardAt(f, 1);
+
+		}
+		polarBearRandom();
+	}
+
+	private void polarBearRandom() {
+		if(!determinism){
+			Random random=new Random();
+			switch (random.nextInt(4)){
+				case 0: polarBear.step(Direction.Right);break;
+				case 1: polarBear.step((Direction.Left));break;
+				case 2: polarBear.step(Direction.Down);break;
+				case 3: polarBear.step(Direction.Up);break;
+			}
+		}
+	}
+
+	private void blizzardAt(Field f, int amount) {
+		if(!determinism){
+			Random r=new Random();
+			if(r.nextInt(10)==0){
+				f.updateSnow(r.nextInt(3)+1);
+			}
+		}
+		else f.updateSnow(amount);
+
+
 	}
 }

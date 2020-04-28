@@ -5,7 +5,7 @@ import static java.lang.Integer.parseInt;
 public class App {
 	private static Game game;
 	private static Scanner lineScanner;
-	//private static boolean determinism;
+	private static boolean exit=false;
 
 	public static void main(String[] args) {
 		processInput();
@@ -15,14 +15,22 @@ public class App {
 		lineScanner=new Scanner(System.in);
 		String line;
 		String[] words;
-		while(lineScanner.hasNextLine()){
+		while(lineScanner.hasNextLine() && !exit){
 			line=lineScanner.nextLine();
 			words=line.split(" ");
 			if(words[0]!=null){
 				switch (words[0]){
 					case "test":
 						Tester tester=new Tester();
-						tester.runAll();
+						if(words.length==1){
+
+							tester.runAll();
+							break;
+						}
+						tester.run(parseInt(words[1]));
+						break;
+
+					case "exit":exit=true;break;
 					case "newGame":
 						game=newGame(lineScanner);
 						break;
@@ -80,7 +88,12 @@ public class App {
 	}
 
 	private static Game loadGame() {
-		if(lineScanner!=null) return Game.parse(lineScanner);
+		try {
+			if(lineScanner!=null) return Game.parse(lineScanner);
+		} catch (Exception e) {
+			System.err.println(e.toString());
+			e.printStackTrace();
+		}
 		return null;
 	}
 
@@ -110,7 +123,7 @@ public class App {
 	}
 
 	private static void storm(String[] words) {
-		String error="Szintaxis: storm fieldNev";
+		String error="Szintaxis: storm fieldNev mennyiseg";
 		if(words.length==3 && game.determinism){
 			try{
 				game.blizzardAt(words[1], parseInt(words[2]));
@@ -171,7 +184,12 @@ public class App {
 		String error="clearSnow index";
 		if(words.length==2){
 			Pawn pawn=game.getActivePawn();
-			Item i=pawn.getItem(parseInt(words[1]));
+			Item i;
+			if(words[1].equals("null")) i=null;
+			else{
+				i=pawn.getItem(parseInt(words[1]));
+			}
+
 			pawn.clearSnow(i);
 		}
 		else System.out.println(error);

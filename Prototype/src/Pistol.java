@@ -4,7 +4,7 @@ public class Pistol extends Item {
 	@Override
 	public boolean use(String cmd) {
 		if(cmd == "AddPart") {
-			System.out.println(this.owner + " adds Pistol to the Flaregun.");
+			System.out.println(this.owner.name + " adds Pistol to the Flaregun.");
 			Game.partFound();
 			return true;
 		}

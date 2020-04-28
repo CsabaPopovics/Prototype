@@ -4,7 +4,7 @@ public class Ammo extends Item {
 	@Override
 	public boolean use(String cmd) {
 		if(cmd == "AddPart") {
-			System.out.println(this.owner + " adds Ammo to the Flaregun.");
+			System.out.println(this.owner.name + " adds Ammo to the Flaregun.");
 			Game.partFound();
 			return true;
 		}

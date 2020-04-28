@@ -1,8 +1,7 @@
-loadGame
 Character Alice
 type eskimo
 temperature 5
-workunits 4
+workunits 3
 position Field_1_1
 isactive
 
@@ -13,9 +12,7 @@ food
 
 Field Field_1_1
 capacity -1
+snow 6
 item ammo
-snow 8
-
+determinism off
 End
-clearSnow 0
-saveGame

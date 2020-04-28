@@ -9,15 +9,15 @@ public class Pawn {
 	protected ArrayList<Item> inventory = new ArrayList<Item>();
 	protected int bodyTemp = 4;
 	protected int workUnit = 4;
-<<<<<<< HEAD
-	private boolean finished = false;
-	private boolean isActive = false;
-=======
+
 	protected boolean finished = false;
+	private boolean isActive = false;
+
+
 	protected String starterFieldName; //Csak parserhez kell, később nem érdekes
 	protected boolean starterIsActive=false; //Csak parserhez kell
 	protected Game game;
->>>>>>> 763dc6603cb0e6d8dad5ccab55c88ccde9fc350d
+
 	
 	public Pawn() {}
 	
@@ -59,7 +59,7 @@ public class Pawn {
 	public void setField(Field field) { this.field = field;}
 
 	public void die() {
-		System.out.println("Character "+game.getCharacterNumber(this)+" died");
+		System.out.println("Character "+name+" died");
 		Game.end();}
 
 
@@ -67,6 +67,7 @@ public class Pawn {
 	public void updateBodyTemp(int i) {
 		bodyTemp += i;
 		if(bodyTemp == 0)
+			System.out.println(name+" has frozen");
 			die();
 		
 	}
@@ -93,8 +94,10 @@ public class Pawn {
 		Field destination = field.getNeighbour(d);
 		if(destination != null) {
 			field.remove(this);
+			System.out.println(name+" steps "+d.toString());
 			destination.accept(this);
 			workUnit--;
+
 		}
 	}
 	
@@ -104,8 +107,10 @@ public class Pawn {
 			cleaningWithItem = i.use("Clear");
 		}
 		
-		if(cleaningWithItem || field.updateSnow(-1))
+		else{
+			field.updateSnow(-1);
 			workUnit--;
+		}
 	}
 	
 	public void fire() { game.checkConditions();}
@@ -177,7 +182,7 @@ public class Pawn {
 	}
 	
 	public void fallIntoWater() {
-		System.out.println("Character "+game.getCharacterNumber(this)+" fallen into water");
+		System.out.println("Character "+name+" fallen into water");
 		for(Item i : inventory) {
 			if(putOn(i))
 				return;
@@ -225,15 +230,16 @@ public class Pawn {
 	public void finish() {
 		finished = true;
 		isActive = false;
+		game.setActiveCharacter(this);
 	}
 	
 	public void resetWorkunits() {
 		workUnit = 4;
 	}
-<<<<<<< HEAD
+
 	
 	public void setAsActive() {isActive = true;}
-=======
+
 
 	@Override
 	public String toString() {
@@ -254,7 +260,7 @@ public class Pawn {
 
 			for (Item i: inventory
 				 ) {
-				res+=i.toString()+"%n";
+				res+=i.toString()+String.format("%n");
 			}
 		}
 		return res;
@@ -264,5 +270,5 @@ public class Pawn {
 		Pawn active=game.getActivePawn();
 		return active.equals(this);
 	}
->>>>>>> 763dc6603cb0e6d8dad5ccab55c88ccde9fc350d
+
 }

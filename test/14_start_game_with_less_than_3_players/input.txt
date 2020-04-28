@@ -1,5 +1,5 @@
 newGame
 addEskimo Alice
 addEskimo Bob
-startGame
-
+finishSetup
+exit

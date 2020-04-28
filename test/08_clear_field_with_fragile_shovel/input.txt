@@ -3,22 +3,22 @@ Character Alice
 type eskimo
 temperature 5
 workunits 4
-position Field11
-isActive
+position Field_1_1
+isactive
 
 Inventory Alice
 shovel
-fragileShovel 3
+fragileShovel 0
 food
 
-Field11
+Field Field_1_1
 capacity -1
-snow 8
 item ammo
+snow 8
 
 End
-clearSnow 2
-clearSnow 2
-clearSnow 2
+clearSnow 1
+clearSnow 1
+clearSnow 1
 saveGame
 
