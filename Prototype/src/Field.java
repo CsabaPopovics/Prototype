@@ -17,9 +17,17 @@ public abstract class Field {
 	protected Game game;
 	
 	public Field() {}
-	
+
+	/**
+	 * Adott név alapján létrehoz egy fieldet
+	 * @param name Field kívánt neve
+	 */
 	public Field(String name) {this.name = name;}
 
+	/***
+	 * Létrehoz egy ugyanolyan fieldet, mint amit kapott
+	 * @param f mintául kapott Field
+	 */
 	public Field(Field f) {
 		snowLevel=f.snowLevel;
 		limit=f.limit;
@@ -32,6 +40,15 @@ public abstract class Field {
 		capacityDiscovered=f.capacityDiscovered;
 	}
 
+	/**
+	 * Beállítja a Fieldet a scannerből kapott paraméterek szerint a megfelelő tulajdonságokkal
+	 * @param scanner std inputról olvasó scanner a következő leetséges sorokkal:
+	 *                   [capacityDiscovered]
+	 *                   [hasIgloo]
+	 *                   [hasTent]
+	 *                   snow mennyiség
+	 *                   words[0] == "" : befejezi a parseot
+	 */
 	public void parse(Scanner scanner) {
 
 		boolean parse=true;
@@ -64,7 +81,7 @@ public abstract class Field {
 		}
 		return;
 	}
-	
+
 	public void setNeighbour(Field f, Direction d) {
 		neighbours.put(d, f);
 	}
@@ -162,6 +179,10 @@ public abstract class Field {
 	
 	public String getName() {return name;}
 
+	/**
+	 * Stringgé alakítja a mező tulajdonságait adott formátum szerint, a nevét nem teszi bele
+	 * @return
+	 */
 	@Override
 	public String toString() {
 		String res;
@@ -173,14 +194,15 @@ public abstract class Field {
 		return res;
 	}
 
+	/**
+	 * Felfedezték-e már a mező kapacitását (rajzoláshoz jó lesz)
+	 * @return
+	 */
 	private boolean capacityDiscovered() {
 		return capacityDiscovered;
 	}
 
-	//Betöltéshez pawn elhelyezése vizsgálat nélkül
-	public void placePawnFirstTime(Pawn p){
-		characters.add(p);
-	}
+
 	
 	public void copyNeighbours(Field f) {
 		for(Direction d : Direction.values()) {
