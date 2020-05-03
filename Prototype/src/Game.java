@@ -200,7 +200,7 @@ public class Game {
 			String[] words=lineScanner.nextLine().split(" ");
 			if(words.length==2){
 				if(words[0].equals("addEskimo")) characters.add(new Eskimo(words[1]));
-				if(words[0].equals("addResearcher")) characters.add(new Eskimo(words[1]));
+				if(words[0].equals("addResearcher")) characters.add(new Researcher(words[1]));
 			}
 			if(words[0].equals("finishSetup")) {
 				if(characters.size()>=3){
